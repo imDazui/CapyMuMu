@@ -43,7 +43,6 @@ enum AudioType: String, CaseIterable, Identifiable {
 // MARK: - Time Models
 enum TimeLimit: String, CaseIterable, Identifiable {
     case unlimited = "不限"
-    case seconds10 = "10秒"
     case minutes10 = "10分钟"
     case minutes25 = "25分钟"
     case hour1 = "1小时"
@@ -54,7 +53,6 @@ enum TimeLimit: String, CaseIterable, Identifiable {
     var seconds: TimeInterval {
         switch self {
         case .unlimited: return .infinity
-        case .seconds10: return 10
         case .minutes10: return 10 * 60
         case .minutes25: return 25 * 60
         case .hour1: return 60 * 60
@@ -281,7 +279,7 @@ struct AudioListView: View {
                 }) {
                     HStack(spacing: 8) {
                         // 状态图标
-                        Image(systemName: audioManager.selectedTypes.contains(type) ? "circle.fill" : "circle")
+                        Image(systemName: audioManager.selectedTypes.contains(type) ? "checkmark.circle" : "circle")
                             .foregroundColor(iconColor)
                             .frame(width: 16)
                         
@@ -292,8 +290,8 @@ struct AudioListView: View {
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .padding(.vertical, 4)
-                .padding(.horizontal, 8)
+                .padding(.vertical, 5)
+                .padding(.horizontal, 5)
                 .background(
                     RoundedRectangle(cornerRadius: 4)
                         .fill(Color.primary.opacity(0.1))
@@ -323,7 +321,7 @@ struct ActiveSoundView: View {
     }
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 0) {
             // 声音图标/删除按钮
             Button(action: {
                 if isHovering {
@@ -341,33 +339,23 @@ struct ActiveSoundView: View {
             
             Spacer()
             
-            // 音量滑块
-            Slider(
+            // 自定义音量滑块
+            CustomVolumeSlider(
                 value: Binding(
                     get: { audioManager.volumes[type] ?? 0 },
                     set: { audioManager.updateVolume($0, for: type) }
-                ),
-                in: 0...1
+                )
             )
-            .frame(width: 100)
-            .tint(colorScheme == .dark ? .white : .blue)
+            .frame(width: 180)
         }
         .padding(.vertical, 4)
         .padding(.horizontal)
-        .background(
-            RoundedRectangle(cornerRadius: 6)
-                .fill(Color.primary.opacity(0.1))
-                .opacity(isHovering ? 1 : 0)
-        )
         .onHover { hovering in
-            withAnimation(.easeInOut(duration: 0.2)) {
-                isHovering = hovering
-            }
+            isHovering = hovering
         }
     }
 }
 
-// MARK: - Menu Item View
 struct MenuItemView: View {
     let title: String
     let action: () -> Void
@@ -383,18 +371,14 @@ struct MenuItemView: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .padding(.vertical, 4)
-        .padding(.horizontal, 8)
+        .padding(.vertical, 5)
+        .padding(.horizontal, 19)
         .background(
             RoundedRectangle(cornerRadius: 4)
-                .fill(Color.primary.opacity(
-                    isHovering ? 0.1 : 0
-                ))
+                .fill(Color.blue.opacity(isHovering ? 0.8 : 0))
         )
         .onHover { hovering in
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isHovering = hovering
-            }
+            isHovering = hovering
         }
     }
 }
@@ -411,27 +395,79 @@ struct MenuToggleView: View {
             action()
         }) {
             HStack {
+                Image(systemName: isOn ? "checkmark" : "")
+                    .foregroundColor(.primary)
+                    .frame(width: 1)
                 Text(title)
                     .foregroundColor(.primary)
                 Spacer()
-                Image(systemName: isOn ? "checkmark" : "")
-                    .foregroundColor(.blue)
-                    .frame(width: 16)
             }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .padding(.vertical, 4)
-        .padding(.horizontal, 8)
+        .padding(.vertical, 5)
+        .padding(.horizontal, 10)
         .background(
             RoundedRectangle(cornerRadius: 4)
-                .fill(Color.blue.opacity(isHovering ? 0.2 : 0))
+                .fill(Color.blue.opacity(isHovering ? 0.8 : 0))
         )
         .onHover { hovering in
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isHovering = hovering
-            }
+            isHovering = hovering
         }
+    }
+}
+
+// MARK: - Custom Volume Slider
+struct CustomVolumeSlider: View {
+    @Binding var value: Float
+    @Environment(\.colorScheme) private var colorScheme
+    @GestureState private var isDragging: Bool = false
+    @State private var localValue: Float
+    
+    private let trackHeight: CGFloat = 2
+    private let thumbSize: CGFloat = 10
+    
+    init(value: Binding<Float>) {
+        self._value = value
+        self._localValue = State(initialValue: value.wrappedValue)
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                // 背景线条
+                Rectangle()
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: trackHeight)
+                    .cornerRadius(trackHeight / 2)
+                
+                // 已选择部分
+                Rectangle()
+                    .fill(colorScheme == .dark ? Color.white : Color.blue)
+                    .frame(width: max(0, min(geometry.size.width * CGFloat(localValue), geometry.size.width)), height: trackHeight)
+                    .cornerRadius(trackHeight / 2)
+                
+                // 滑块圆点
+                Circle()
+                    .fill(colorScheme == .dark ? Color.white : Color.blue)
+                    .frame(width: thumbSize, height: thumbSize)
+                    .position(x: max(thumbSize/2, min(geometry.size.width * CGFloat(localValue), geometry.size.width - thumbSize/2)),
+                            y: geometry.size.height / 2)
+                    .shadow(color: .black.opacity(0.15), radius: 1, x: 0, y: 1)
+            }
+            .gesture(
+                DragGesture(minimumDistance: 0)
+                    .updating($isDragging) { value, state, _ in
+                        state = true
+                    }
+                    .onChanged { gesture in
+                        let newValue = Float(gesture.location.x / geometry.size.width)
+                        localValue = max(0, min(1, newValue))
+                        value = localValue
+                    }
+            )
+        }
+        .frame(height: thumbSize)
     }
 }
 
@@ -458,7 +494,7 @@ struct MenuContentView: View {
     }
     
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 10) {
             // 标题和播放控制
             HStack {
                 Text("Murmur")
@@ -529,6 +565,7 @@ struct MenuContentView: View {
             .padding(.top, 8)
             
             Divider()
+                .padding(.horizontal, 9)
             
             if audioManager.selectedTypes.isEmpty {
                 Text("请添加声音")
@@ -538,16 +575,16 @@ struct MenuContentView: View {
             } else {
                 // 活跃的音频列表
                 ScrollView {
-                    VStack(spacing: 2) {
+                    VStack(spacing: 0) {
                         ForEach(Array(audioManager.selectedTypes).sorted(by: { $0.displayName < $1.displayName })) { type in
                             ActiveSoundView(type: type)
                         }
                     }
-                    .padding(.vertical, 4)
                 }
             }
             
             Divider()
+                .padding(.horizontal, 9)
             
             // 声音选择菜单
             Menu {
@@ -556,9 +593,6 @@ struct MenuContentView: View {
                 HStack {
                     Text("声音")
                     Spacer()
-                    Image(systemName: "chevron.right")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
                 }
             }
             .menuStyle(.borderlessButton)
@@ -566,6 +600,7 @@ struct MenuContentView: View {
             .padding(.horizontal)
             
             Divider()
+                .padding(.horizontal, 9)
             
             // 底部菜单区域
             VStack(spacing: 0) {
@@ -578,15 +613,16 @@ struct MenuContentView: View {
                 )
                 
                 MenuItemView(
-                    title: "退出 Murmur",
+                    title: "退出",
                     action: {
                         NSApplication.shared.terminate(nil)
                     }
                 )
             }
-            .padding(.vertical, 4)
+            .padding(.bottom, 8)
         }
         .frame(width: 300)
+        .padding(5)
     }
 }
 
