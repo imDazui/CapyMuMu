@@ -397,7 +397,7 @@ struct MenuToggleView: View {
             HStack {
                 Image(systemName: isOn ? "checkmark" : "")
                     .foregroundColor(.primary)
-                    .frame(width: 1)
+                    .frame(width: 0)  // 恢复合理的宽度
                 Text(title)
                     .foregroundColor(.primary)
                 Spacer()
