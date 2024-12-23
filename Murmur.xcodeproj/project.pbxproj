@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		AAA757D42D1902890092A484 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAA757D32D1902890092A484 /* Info.plist */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		AAA757B72D1902680092A484 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -28,7 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AAA757A52D1902660092A484 /* MurmurApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MurmurApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAA757A52D1902660092A484 /* Murmur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Murmur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA757B62D1902680092A484 /* MurmurTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MurmurTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA757C02D1902680092A484 /* MurmurUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MurmurUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA757D32D1902890092A484 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -136,7 +132,7 @@
 		AAA757A62D1902660092A484 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AAA757A52D1902660092A484 /* MurmurApp.app */,
+				AAA757A52D1902660092A484 /* Murmur.app */,
 				AAA757B62D1902680092A484 /* MurmurTests.xctest */,
 				AAA757C02D1902680092A484 /* MurmurUITests.xctest */,
 			);
@@ -165,7 +161,7 @@
 			packageProductDependencies = (
 			);
 			productName = Murmur;
-			productReference = AAA757A52D1902660092A484 /* MurmurApp.app */;
+			productReference = AAA757A52D1902660092A484 /* Murmur.app */;
 			productType = "com.apple.product-type.application";
 		};
 		AAA757B52D1902680092A484 /* MurmurTests */ = {
@@ -264,7 +260,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAA757D42D1902890092A484 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +447,7 @@
 				"ARCHS[sdk=*]" = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Murmur/Murmur.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -485,6 +481,7 @@
 				"ARCHS[sdk=*]" = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Murmur/Murmur.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
