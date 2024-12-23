@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AAA757D42D1902890092A484 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAA757D32D1902890092A484 /* Info.plist */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		AAA757B72D1902680092A484 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,11 +31,57 @@
 		AAA757A52D1902660092A484 /* Murmur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Murmur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA757B62D1902680092A484 /* MurmurTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MurmurTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA757C02D1902680092A484 /* MurmurUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MurmurUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAA757D32D1902890092A484 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AAA7583F2D190F940092A484 /* Exceptions for "Murmur" folder in "MurmurTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Audio/Beach.mp3,
+				Resources/Audio/Birds.mp3,
+				Resources/Audio/Dryer.mp3,
+				Resources/Audio/Fire.mp3,
+				Resources/Audio/Forest_waterfall.mp3,
+				Resources/Audio/Humans.mp3,
+				Resources/Audio/Ocean.mp3,
+				Resources/Audio/Rain.mp3,
+				Resources/Audio/Storm.mp3,
+				Resources/Audio/Stream.mp3,
+				Resources/Audio/Thunder.mp3,
+				Resources/Audio/Underwater.mp3,
+				Resources/Audio/Waves.mp3,
+			);
+			target = AAA757B52D1902680092A484 /* MurmurTests */;
+		};
+		AAA758402D190F940092A484 /* Exceptions for "Murmur" folder in "MurmurUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Audio/Beach.mp3,
+				Resources/Audio/Birds.mp3,
+				Resources/Audio/Dryer.mp3,
+				Resources/Audio/Fire.mp3,
+				Resources/Audio/Forest_waterfall.mp3,
+				Resources/Audio/Humans.mp3,
+				Resources/Audio/Ocean.mp3,
+				Resources/Audio/Rain.mp3,
+				Resources/Audio/Storm.mp3,
+				Resources/Audio/Stream.mp3,
+				Resources/Audio/Thunder.mp3,
+				Resources/Audio/Underwater.mp3,
+				Resources/Audio/Waves.mp3,
+			);
+			target = AAA757BF2D1902680092A484 /* MurmurUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AAA757A72D1902660092A484 /* Murmur */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AAA7583F2D190F940092A484 /* Exceptions for "Murmur" folder in "MurmurTests" target */,
+				AAA758402D190F940092A484 /* Exceptions for "Murmur" folder in "MurmurUITests" target */,
+			);
 			path = Murmur;
 			sourceTree = "<group>";
 		};
@@ -79,6 +129,7 @@
 				AAA757B92D1902680092A484 /* MurmurTests */,
 				AAA757C32D1902680092A484 /* MurmurUITests */,
 				AAA757A62D1902660092A484 /* Products */,
+				AAA757D32D1902890092A484 /* Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -212,6 +263,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA757D42D1902890092A484 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +373,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -378,6 +431,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
