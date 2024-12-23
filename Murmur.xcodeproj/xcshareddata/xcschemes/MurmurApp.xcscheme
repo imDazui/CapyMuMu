@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAA757A42D1902660092A484"
-               BuildableName = "MurmurApp.app"
+               BuildableName = "Murmur.app"
                BlueprintName = "MurmurApp"
                ReferencedContainer = "container:Murmur.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAA757A42D1902660092A484"
-            BuildableName = "MurmurApp.app"
+            BuildableName = "Murmur.app"
             BlueprintName = "MurmurApp"
             ReferencedContainer = "container:Murmur.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAA757A42D1902660092A484"
-            BuildableName = "MurmurApp.app"
+            BuildableName = "Murmur.app"
             BlueprintName = "MurmurApp"
             ReferencedContainer = "container:Murmur.xcodeproj">
          </BuildableReference>
