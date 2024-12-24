@@ -4,7 +4,7 @@ import AppKit
 import AVFoundation
 
 // MARK: - Audio Models
-enum AudioType: String, CaseIterable, Identifiable {
+enum AudioType: String, CaseIterable, Identifiable, Codable {
     case beach = "Beach"
     case birds = "Birds"
     case dryer = "Dryer"
@@ -60,7 +60,7 @@ enum AudioType: String, CaseIterable, Identifiable {
 }
 
 // MARK: - Time Models
-enum TimeLimit: String, CaseIterable, Identifiable {
+enum TimeLimit: String, CaseIterable, Identifiable, Codable {
     case unlimited = "不限"
     case minutes10 = "10分钟"
     case minutes25 = "25分钟"
@@ -457,6 +457,87 @@ class AudioManager: ObservableObject {
         selectedTypes.forEach { playSound($0) }
         startTimer()
     }
+    
+    func loadConfiguration(_ config: SavedConfiguration) {
+        // 停止当前播放
+        stopAll()
+        
+        // 设置新的配置
+        selectedTypes = Set(config.audioTypes)
+        selectedTimeLimit = config.timeLimit
+        
+        // 为每个音频类型设置默认音量
+        for type in config.audioTypes {
+            if volumes[type] == nil {
+                volumes[type] = 0.5
+            }
+        }
+        
+        // 开始播放
+        startPlaying()
+    }
+    
+    private func startPlaying() {
+        isPlaying = true
+        selectedTypes.forEach { playSound($0) }
+        startTimer()
+    }
+}
+
+// MARK: - Saved Configuration Model
+struct SavedConfiguration: Codable, Identifiable {
+    let id: UUID
+    let audioTypes: [AudioType]
+    let timeLimit: TimeLimit
+    let timestamp: Date
+    
+    var formattedTime: String {
+        switch timeLimit {
+        case .unlimited: return "不限"
+        case .minutes10: return "10分钟"
+        case .minutes25: return "25分钟"
+        case .hour1: return "1小时"
+        case .hour2: return "2小时"
+        }
+    }
+}
+
+class SavedConfigurationManager: ObservableObject {
+    @Published var savedConfigurations: [SavedConfiguration] = []
+    private let saveKey = "savedConfigurations"
+    
+    init() {
+        loadConfigurations()
+    }
+    
+    func saveConfiguration(audioTypes: [AudioType], timeLimit: TimeLimit) {
+        let configuration = SavedConfiguration(
+            id: UUID(),
+            audioTypes: audioTypes,
+            timeLimit: timeLimit,
+            timestamp: Date()
+        )
+        savedConfigurations.insert(configuration, at: 0)
+        saveConfigurations()
+    }
+    
+    func deleteConfiguration(_ config: SavedConfiguration) {
+        savedConfigurations.removeAll { $0.id == config.id }
+        saveConfigurations()
+    }
+    
+    private func loadConfigurations() {
+        if let data = UserDefaults.standard.data(forKey: saveKey),
+           let decoded = try? JSONDecoder().decode([SavedConfiguration].self, from: data) {
+            savedConfigurations = decoded
+        }
+    }
+    
+    private func saveConfigurations() {
+        if let encoded = try? JSONEncoder().encode(savedConfigurations) {
+            UserDefaults.standard.set(encoded, forKey: saveKey)
+        }
+    }
 }
 
 // MARK: - Menu Views
@@ -615,6 +696,80 @@ struct MenuToggleView: View {
     }
 }
 
+// MARK: - Save Menu View
+struct SaveMenuView: View {
+    @Binding var isPresented: Bool
+    @EnvironmentObject private var audioManager: AudioManager
+    @StateObject private var configManager = SavedConfigurationManager()
+    @Environment(\.colorScheme) private var colorScheme
+    @State private var hoveredConfigId: UUID? = nil
+    
+    private var iconColor: Color {
+        colorScheme == .dark ? .white : .blue
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Button(action: {
+                let audioTypes = Array(audioManager.selectedTypes)
+                configManager.saveConfiguration(
+                    audioTypes: audioTypes,
+                    timeLimit: audioManager.selectedTimeLimit
+                )
+            }) {
+                Label("保存", systemImage: "plus")
+            }
+            .buttonStyle(.plain)
+            
+            if !configManager.savedConfigurations.isEmpty {
+                Divider()
+                
+                ForEach(configManager.savedConfigurations) { config in
+                    HStack(spacing: 4) {
+                        // 删除按钮
+                        if hoveredConfigId == config.id {
+                            Button(action: {
+                                configManager.deleteConfiguration(config)
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.secondary)
+                                    .imageScale(.small)
+                            }
+                            .buttonStyle(.plain)
+                            .transition(.opacity)
+                        }
+                        
+                        Button(action: {
+                            audioManager.loadConfiguration(config)
+                            isPresented = false  // 关闭菜单
+                        }) {
+                            HStack {
+                                // 声音图标
+                                HStack(spacing: 2) {
+                                    ForEach(config.audioTypes, id: \.self) { type in
+                                        Image(systemName: type.iconName)
+                                    }
+                                }
+                                Spacer()
+                                Text(config.formattedTime)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .onHover { isHovered in
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            hoveredConfigId = isHovered ? config.id : nil
+                        }
+                    }
+                }
+            }
+        }
+        .padding(8)
+        .frame(minWidth: 200)
+    }
+}
+
 // MARK: - Sound Menu View
 struct SoundMenuView: View {
     @EnvironmentObject private var audioManager: AudioManager
@@ -680,13 +835,13 @@ struct CustomVolumeSlider: View {
                 
                 // 已选择部分
                 Rectangle()
-                    .fill(colorScheme == .dark ? Color.white : Color.blue)
+                    .fill(colorScheme == .dark ? .white : .blue)
                     .frame(width: max(0, min(geometry.size.width * CGFloat(localValue), geometry.size.width)), height: trackHeight)
                     .cornerRadius(trackHeight / 2)
                 
                 // 滑块圆点
                 Circle()
-                    .fill(colorScheme == .dark ? Color.white : Color.blue)
+                    .fill(colorScheme == .dark ? .white : .blue)
                     .frame(width: thumbSize, height: thumbSize)
                     .position(x: max(thumbSize/2, min(geometry.size.width * CGFloat(localValue), geometry.size.width - thumbSize/2)),
                             y: geometry.size.height / 2)
@@ -715,6 +870,7 @@ struct MenuContentView: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var showingTimeOptions = false
     @State private var showAudioList = false
+    @State private var showSaveMenu = false
     
     private var iconColor: Color {
         colorScheme == .dark ? .white : .blue
@@ -798,6 +954,20 @@ struct MenuContentView: View {
                         .foregroundColor(iconColor)
                 }
                 .buttonStyle(.plain)
+                
+                // 保存按钮
+                Button(action: {
+                    showSaveMenu.toggle()
+                }) {
+                    Image(systemName: "folder")
+                        .font(.title2)
+                        .foregroundColor(iconColor)
+                }
+                .buttonStyle(.plain)
+                .popover(isPresented: $showSaveMenu, arrowEdge: .bottom) {
+                    SaveMenuView(isPresented: $showSaveMenu)
+                }
+                
             }
             .padding(.horizontal)
             .padding(.top, 8)
