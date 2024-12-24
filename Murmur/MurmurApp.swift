@@ -38,6 +38,25 @@ enum AudioType: String, CaseIterable, Identifiable {
         case .waves: return "海浪"
         }
     }
+    
+    // 添加图标匹配
+    var iconName: String {
+        switch self {
+        case .beach: return "beach.umbrella"
+        case .birds: return "bird"
+        case .dryer: return "washer"
+        case .fire: return "flame"
+        case .forest_waterfall: return "leaf"
+        case .humans: return "person.2"
+        case .ocean: return "water.waves"
+        case .rain: return "cloud.rain"
+        case .storm: return "cloud.bolt.rain"
+        case .stream: return "drop"
+        case .thunder: return "cloud.bolt"
+        case .underwater: return "bubble.right"
+        case .waves: return "water.waves"
+        }
+    }
 }
 
 // MARK: - Time Models
@@ -61,6 +80,192 @@ enum TimeLimit: String, CaseIterable, Identifiable {
     }
 }
 
+// MARK: - Audio Player Pair
+class AudioPlayerPair {
+    private var player1: AVAudioPlayer
+    private var player2: AVAudioPlayer
+    private var activePlayer: Int = 1
+    private var fadeTimer: Timer?
+    private var fadeInOutTimer: Timer?
+    private let crossfadeDuration: TimeInterval = 3.0
+    private var targetVolume: Float = 0.5
+    
+    var volume: Float {
+        get { targetVolume }
+        set {
+            targetVolume = newValue
+            if !isInFadeTransition {
+                updateVolume()
+            }
+        }
+    }
+    
+    private var isInFadeTransition = false
+    
+    private func updateVolume() {
+        if activePlayer == 1 {
+            player1.volume = targetVolume
+        } else {
+            player2.volume = targetVolume
+        }
+    }
+    
+    var isPlaying: Bool {
+        player1.isPlaying || player2.isPlaying
+    }
+    
+    init?(url: URL) {
+        guard let player1 = try? AVAudioPlayer(contentsOf: url),
+              let player2 = try? AVAudioPlayer(contentsOf: url) else {
+            return nil
+        }
+        self.player1 = player1
+        self.player2 = player2
+        
+        // Configure both players
+        player1.numberOfLoops = 0
+        player2.numberOfLoops = 0
+        player1.prepareToPlay()
+        player2.prepareToPlay()
+    }
+    
+    func play() {
+        guard !isPlaying else { return }
+        
+        print("Starting playback with fade in")
+        isInFadeTransition = true
+        
+        // 开始时将音量设为 0 并逐渐淡入
+        let currentPlayer = activePlayer == 1 ? player1 : player2
+        currentPlayer.volume = 0
+        currentPlayer.play()
+        
+        performInitialFadeIn(for: currentPlayer)
+    }
+    
+    private func performInitialFadeIn(for player: AVAudioPlayer) {
+        print("Performing initial fade in")
+        let fadeSteps = 60 // 增加步数使过渡更平滑
+        let stepDuration = crossfadeDuration / TimeInterval(fadeSteps)
+        var step = 0
+        
+        fadeInOutTimer?.invalidate()
+        fadeInOutTimer = Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            
+            step += 1
+            let progress = Float(step) / Float(fadeSteps)
+            let newVolume = self.targetVolume * progress
+            player.volume = newVolume
+            
+            print("Fade in step \(step)/\(fadeSteps), volume: \(newVolume)")
+            
+            if step >= fadeSteps {
+                timer.invalidate()
+                self.isInFadeTransition = false
+                player.volume = self.targetVolume
+                print("Fade in complete, final volume: \(player.volume)")
+                self.scheduleCrossfade()
+            }
+        }
+    }
+    
+    func stop() {
+        guard isPlaying else { return }
+        
+        fadeTimer?.invalidate()
+        fadeTimer = nil
+        
+        // 执行淡出效果
+        performFadeOut()
+    }
+    
+    private func performFadeOut() {
+        isInFadeTransition = true
+        let fadeSteps = 50
+        let stepDuration = crossfadeDuration / 2 / TimeInterval(fadeSteps) // 淡出用一半时间
+        var step = 0
+        
+        let currentPlayer = activePlayer == 1 ? player1 : player2
+        let initialVolume = currentPlayer.volume
+        
+        fadeInOutTimer?.invalidate()
+        fadeInOutTimer = Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            
+            step += 1
+            let progress = 1 - Float(step) / Float(fadeSteps)
+            currentPlayer.volume = initialVolume * progress
+            
+            if step >= fadeSteps {
+                timer.invalidate()
+                self.isInFadeTransition = false
+                currentPlayer.stop()
+                currentPlayer.currentTime = 0
+                self.fadeInOutTimer = nil
+            }
+        }
+    }
+    
+    private func scheduleCrossfade() {
+        let currentPlayer = activePlayer == 1 ? player1 : player2
+        let nextPlayer = activePlayer == 1 ? player2 : player1
+        
+        // Start the next player slightly before the current one ends
+        let crossfadeStart = currentPlayer.duration - crossfadeDuration
+        
+        fadeTimer?.invalidate()
+        fadeTimer = Timer.scheduledTimer(withTimeInterval: crossfadeStart, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            
+            // Start the next player
+            nextPlayer.currentTime = 0
+            nextPlayer.volume = 0
+            nextPlayer.play()
+            
+            // Perform the crossfade
+            self.performCrossfade(fadeOut: currentPlayer, fadeIn: nextPlayer)
+        }
+    }
+    
+    private func performCrossfade(fadeOut: AVAudioPlayer, fadeIn: AVAudioPlayer) {
+        isInFadeTransition = true
+        let fadeSteps = 60 // 增加步数使过渡更平滑
+        let stepDuration = crossfadeDuration / TimeInterval(fadeSteps)
+        var step = 0
+        
+        fadeInOutTimer?.invalidate()
+        fadeInOutTimer = Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            
+            step += 1
+            let progress = Float(step) / Float(fadeSteps)
+            
+            fadeOut.volume = self.targetVolume * (1 - progress)
+            fadeIn.volume = self.targetVolume * progress
+            
+            if step >= fadeSteps {
+                timer.invalidate()
+                self.isInFadeTransition = false
+                fadeOut.stop()
+                fadeOut.currentTime = 0
+                self.activePlayer = self.activePlayer == 1 ? 2 : 1
+                self.scheduleCrossfade()
+                self.fadeInOutTimer = nil
+            }
+        }
+    }
+}
+
 // MARK: - Audio Manager
 class AudioManager: ObservableObject {
     @Published var selectedTypes: Set<AudioType> = []
@@ -69,7 +274,7 @@ class AudioManager: ObservableObject {
     @Published var selectedTimeLimit: TimeLimit = .unlimited
     @Published var remainingTime: TimeInterval = 0
     
-    private var players: [AudioType: AVAudioPlayer] = [:]
+    private var playerPairs: [AudioType: AudioPlayerPair] = [:]
     private var timer: Timer?
     private var countdownTimer: Timer?
     
@@ -108,29 +313,24 @@ class AudioManager: ObservableObject {
             }
             
             if let url = audioURL {
-                do {
-                    let player = try AVAudioPlayer(contentsOf: url)
-                    print("Created player for \(type.rawValue)")
-                    print("Player duration: \(player.duration) seconds")
-                    
-                    player.numberOfLoops = -1
-                    player.prepareToPlay()
-                    players[type] = player
+                if let playerPair = AudioPlayerPair(url: url) {
+                    playerPairs[type] = playerPair
                     volumes[type] = 0.5
+                    print("Created player pair for \(type.rawValue)")
                     
-                    // 测试播放器是否正常工作
-                    player.play()
-                    player.stop()
-                    print("Player test successful")
-                } catch {
-                    print("Failed to create player for \(type.rawValue): \(error)")
+                    // Test the player pair
+                    playerPair.play()
+                    playerPair.stop()
+                    print("Player pair test successful")
+                } else {
+                    print("Failed to create player pair for \(type.rawValue)")
                 }
             } else {
                 print("Could not find audio file for \(type.rawValue)")
             }
         }
         
-        print("\nTotal players created: \(players.count)")
+        print("\nTotal player pairs created: \(playerPairs.count)")
     }
     
     func toggleSound(_ type: AudioType) {
@@ -151,39 +351,32 @@ class AudioManager: ObservableObject {
     
     func playSound(_ type: AudioType) {
         print("\nAttempting to play \(type.rawValue)")
-        guard let player = players[type] else {
-            print("Error: No player found for \(type.rawValue)")
+        guard let playerPair = playerPairs[type],
+              let volume = volumes[type] else {
+            print("Error: No player pair or volume setting found for \(type.rawValue)")
             return
         }
         
-        guard let volume = volumes[type] else {
-            print("Error: No volume setting for \(type.rawValue)")
-            return
-        }
-        
-        player.volume = volume
-        if !player.isPlaying {
-            player.currentTime = 0
-            let success = player.play()
-            print("\(type.rawValue) playback started: \(success)")
-            print("Player state - isPlaying: \(player.isPlaying), volume: \(player.volume), currentTime: \(player.currentTime)")
+        playerPair.volume = volume
+        if !playerPair.isPlaying {
+            playerPair.play()
+            print("\(type.rawValue) playback started")
         } else {
             print("\(type.rawValue) is already playing")
         }
     }
     
     func stopSound(_ type: AudioType) {
-        if let player = players[type] {
-            player.stop()
-            player.currentTime = 0
+        if let playerPair = playerPairs[type] {
+            playerPair.stop()
             print("Stopped playing \(type.rawValue)")
         }
     }
     
     func updateVolume(_ volume: Float, for type: AudioType) {
         volumes[type] = volume
-        if let player = players[type], selectedTypes.contains(type) {
-            player.volume = volume
+        if let playerPair = playerPairs[type], selectedTypes.contains(type) {
+            playerPair.volume = volume
             print("Updated volume for \(type.rawValue): \(volume)")
         }
     }
@@ -279,7 +472,8 @@ struct AudioListView: View {
                 }) {
                     HStack(spacing: 8) {
                         // 状态图标
-                        Image(systemName: audioManager.selectedTypes.contains(type) ? "checkmark.circle" : "circle")
+                        Image(systemName: audioManager.selectedTypes.contains(type) ? "checkmark.circle" : type.iconName)
+                            .font(.system(size: 12))
                             .foregroundColor(iconColor)
                             .frame(width: 16)
                         
@@ -291,7 +485,7 @@ struct AudioListView: View {
                 }
                 .buttonStyle(.plain)
                 .padding(.vertical, 5)
-                .padding(.horizontal, 5)
+                .padding(.horizontal)
                 .background(
                     RoundedRectangle(cornerRadius: 4)
                         .fill(Color.primary.opacity(0.1))
@@ -300,6 +494,7 @@ struct AudioListView: View {
             }
         }
         .padding(.vertical, 4)
+        .frame(width: 200)
     }
     
     private var iconColor: Color {
@@ -328,9 +523,11 @@ struct ActiveSoundView: View {
                     audioManager.toggleSound(type)
                 }
             }) {
-                Image(systemName: isHovering ? "xmark" : "music.note")
+                Image(systemName: isHovering ? "xmark" : type.iconName)
+                    .font(.system(size: 12))  // 统一图标大小
                     .foregroundColor(iconColor)
-                    .frame(width: 20)
+                    .frame(width: 20, height: 20)  // 固定框架大小
+                    .padding(.trailing, 3)
             }
             .buttonStyle(.plain)
             
@@ -372,7 +569,7 @@ struct MenuItemView: View {
         }
         .buttonStyle(.plain)
         .padding(.vertical, 5)
-        .padding(.horizontal, 19)
+        .padding(.horizontal, 18)
         .background(
             RoundedRectangle(cornerRadius: 4)
                 .fill(Color.blue.opacity(isHovering ? 0.8 : 0))
@@ -398,6 +595,7 @@ struct MenuToggleView: View {
                 Image(systemName: isOn ? "checkmark" : "")
                     .foregroundColor(.primary)
                     .frame(width: 0)  // 恢复合理的宽度
+                    .font(.system(size: 10))  // 统一图标大小
                 Text(title)
                     .foregroundColor(.primary)
                 Spacer()
@@ -414,6 +612,45 @@ struct MenuToggleView: View {
         .onHover { hovering in
             isHovering = hovering
         }
+    }
+}
+
+// MARK: - Sound Menu View
+struct SoundMenuView: View {
+    @EnvironmentObject private var audioManager: AudioManager
+    @Binding var showAudioList: Bool
+    @Environment(\.colorScheme) private var colorScheme
+    
+    private var secondaryColor: Color {
+        colorScheme == .dark ? .gray : .secondary
+    }
+    
+    var body: some View {
+        Button(action: {
+            showAudioList.toggle()
+        }) {
+            HStack {
+                Text("声音")
+                    .foregroundColor(.primary)
+                    .frame(alignment: .leading)
+                
+                Spacer()
+                
+                Text("\(audioManager.selectedTypes.count)/\(AudioType.allCases.count)")
+                    .font(.caption)
+                    .foregroundColor(secondaryColor)
+                    .frame(alignment: .trailing)
+                
+                Image(systemName: "chevron.down")
+                    .font(.caption)
+            }
+            .padding(.horizontal, 18)
+            .frame(maxWidth: .infinity)
+            .contentShape(Rectangle())
+            .background(Color.clear)
+        }
+        .buttonStyle(.plain)
+        .frame(maxWidth: .infinity)
     }
 }
 
@@ -477,6 +714,7 @@ struct MenuContentView: View {
     @EnvironmentObject private var audioManager: AudioManager
     @Environment(\.colorScheme) private var colorScheme
     @State private var showingTimeOptions = false
+    @State private var showAudioList = false
     
     private var iconColor: Color {
         colorScheme == .dark ? .white : .blue
@@ -497,16 +735,17 @@ struct MenuContentView: View {
         VStack(spacing: 10) {
             // 标题和播放控制
             HStack {
-                Text("Murmur")
-                    .font(.headline)
                 
-                Spacer()
-                
-                // 倒计时显示
-                Text(formatTime(audioManager.remainingTime))
-                    .font(.system(.body, design: .monospaced))
-                    .foregroundColor(iconColor)
-                
+                Button(action: {
+                    audioManager.togglePlayback()
+                }) {
+                    Image(systemName: audioManager.isPlaying ? "pause" : "play")
+                        .font(.title2)
+                        .foregroundColor(iconColor)
+                }
+                .buttonStyle(.plain)
+                .padding(.trailing, 5)
+
                 // 时间选择按钮
                 Button(action: {
                     showingTimeOptions.toggle()
@@ -516,6 +755,14 @@ struct MenuContentView: View {
                         .foregroundColor(iconColor)
                 }
                 .buttonStyle(.plain)
+                
+                // 倒计时显示
+                Text(formatTime(audioManager.remainingTime))
+                    .font(.system(.body, design: .monospaced))
+                    .foregroundColor(iconColor)
+                
+
+                Spacer()
                 .popover(isPresented: $showingTimeOptions, arrowEdge: .bottom) {
                     VStack(spacing: 8) {
                         ForEach(TimeLimit.allCases) { limit in
@@ -540,22 +787,13 @@ struct MenuContentView: View {
                         }
                     }
                     .padding(8)
-                }
+                }                
                 
                 // 随机按钮
                 Button(action: {
                     audioManager.randomSelectAndPlay()
                 }) {
                     Image(systemName: "shuffle")
-                        .font(.title2)
-                        .foregroundColor(iconColor)
-                }
-                .buttonStyle(.plain)
-                
-                Button(action: {
-                    audioManager.togglePlayback()
-                }) {
-                    Image(systemName: audioManager.isPlaying ? "pause" : "play")
                         .font(.title2)
                         .foregroundColor(iconColor)
                 }
@@ -586,18 +824,12 @@ struct MenuContentView: View {
             Divider()
                 .padding(.horizontal, 9)
             
-            // 声音选择菜单
-            Menu {
-                AudioListView()
-            } label: {
-                HStack {
-                    Text("声音")
-                    Spacer()
+            // 声音选择区域
+            SoundMenuView(showAudioList: $showAudioList)
+                .padding(.vertical, 5)  // 只保留垂直内边距
+                .popover(isPresented: $showAudioList, arrowEdge: .bottom) {
+                    AudioListView()
                 }
-            }
-            .menuStyle(.borderlessButton)
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal)
             
             Divider()
                 .padding(.horizontal, 9)
@@ -619,7 +851,7 @@ struct MenuContentView: View {
                     }
                 )
             }
-            .padding(.bottom, 8)
+            .padding(.bottom, 0)
         }
         .frame(width: 300)
         .padding(5)
