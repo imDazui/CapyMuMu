@@ -1052,7 +1052,7 @@ class AppState: ObservableObject {
 
 // MARK: - App
 @main
-struct MurmurApp: App {
+struct CapyMuMuApp: App {
     @StateObject private var appState = AppState()
     @StateObject private var audioManager = AudioManager()
     

@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAA757A42D1902660092A484"
-               BuildableName = "Murmur.app"
-               BlueprintName = "MurmurApp"
-               ReferencedContainer = "container:Murmur.xcodeproj">
+               BuildableName = "CapyMuMu.app"
+               BlueprintName = "CapyMuMuApp"
+               ReferencedContainer = "container:CapyMuMu.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAA757A42D1902660092A484"
-            BuildableName = "Murmur.app"
-            BlueprintName = "MurmurApp"
-            ReferencedContainer = "container:Murmur.xcodeproj">
+            BuildableName = "CapyMuMu.app"
+            BlueprintName = "CapyMuMuApp"
+            ReferencedContainer = "container:CapyMuMu.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAA757A42D1902660092A484"
-            BuildableName = "Murmur.app"
-            BlueprintName = "MurmurApp"
-            ReferencedContainer = "container:Murmur.xcodeproj">
+            BuildableName = "CapyMuMu.app"
+            BlueprintName = "CapyMuMuApp"
+            ReferencedContainer = "container:CapyMuMu.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

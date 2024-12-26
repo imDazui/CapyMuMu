@@ -24,14 +24,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AAA757A52D1902660092A484 /* Murmur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Murmur.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AAA757B62D1902680092A484 /* MurmurTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MurmurTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AAA757C02D1902680092A484 /* MurmurUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MurmurUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAA757A52D1902660092A484 /* CapyMuMu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CapyMuMu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAA757B62D1902680092A484 /* CapyMuMuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapyMuMuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAA757C02D1902680092A484 /* CapyMuMuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapyMuMuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA757D32D1902890092A484 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		AAA7583F2D190F940092A484 /* Exceptions for "Murmur" folder in "MurmurTests" target */ = {
+		AAA7583F2D190F940092A484 /* Exceptions for "CapyMuMu" folder in "CapyMuMuTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Audio/Beach.mp3,
@@ -48,9 +48,9 @@
 				Resources/Audio/Underwater.mp3,
 				Resources/Audio/Waves.mp3,
 			);
-			target = AAA757B52D1902680092A484 /* MurmurTests */;
+			target = AAA757B52D1902680092A484 /* CapyMuMuTests */;
 		};
-		AAA758402D190F940092A484 /* Exceptions for "Murmur" folder in "MurmurUITests" target */ = {
+		AAA758402D190F940092A484 /* Exceptions for "CapyMuMu" folder in "CapyMuMuUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Audio/Beach.mp3,
@@ -67,28 +67,28 @@
 				Resources/Audio/Underwater.mp3,
 				Resources/Audio/Waves.mp3,
 			);
-			target = AAA757BF2D1902680092A484 /* MurmurUITests */;
+			target = AAA757BF2D1902680092A484 /* CapyMuMuUITests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		AAA757A72D1902660092A484 /* Murmur */ = {
+		AAA757A72D1902660092A484 /* CapyMuMu */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				AAA7583F2D190F940092A484 /* Exceptions for "Murmur" folder in "MurmurTests" target */,
-				AAA758402D190F940092A484 /* Exceptions for "Murmur" folder in "MurmurUITests" target */,
+				AAA7583F2D190F940092A484 /* Exceptions for "CapyMuMu" folder in "CapyMuMuTests" target */,
+				AAA758402D190F940092A484 /* Exceptions for "CapyMuMu" folder in "CapyMuMuUITests" target */,
 			);
-			path = Murmur;
+			path = CapyMuMu;
 			sourceTree = "<group>";
 		};
-		AAA757B92D1902680092A484 /* MurmurTests */ = {
+		AAA757B92D1902680092A484 /* CapyMuMuTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MurmurTests;
+			path = CapyMuMuTests;
 			sourceTree = "<group>";
 		};
-		AAA757C32D1902680092A484 /* MurmurUITests */ = {
+		AAA757C32D1902680092A484 /* CapyMuMuUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MurmurUITests;
+			path = CapyMuMuUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -121,9 +121,9 @@
 		AAA7579C2D1902660092A484 = {
 			isa = PBXGroup;
 			children = (
-				AAA757A72D1902660092A484 /* Murmur */,
-				AAA757B92D1902680092A484 /* MurmurTests */,
-				AAA757C32D1902680092A484 /* MurmurUITests */,
+				AAA757A72D1902660092A484 /* CapyMuMu */,
+				AAA757B92D1902680092A484 /* CapyMuMuTests */,
+				AAA757C32D1902680092A484 /* CapyMuMuUITests */,
 				AAA757A62D1902660092A484 /* Products */,
 				AAA757D32D1902890092A484 /* Info.plist */,
 			);
@@ -132,9 +132,9 @@
 		AAA757A62D1902660092A484 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AAA757A52D1902660092A484 /* Murmur.app */,
-				AAA757B62D1902680092A484 /* MurmurTests.xctest */,
-				AAA757C02D1902680092A484 /* MurmurUITests.xctest */,
+				AAA757A52D1902660092A484 /* CapyMuMu.app */,
+				AAA757B62D1902680092A484 /* CapyMuMuTests.xctest */,
+				AAA757C02D1902680092A484 /* CapyMuMuUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,9 +142,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AAA757A42D1902660092A484 /* MurmurApp */ = {
+		AAA757A42D1902660092A484 /* CapyMuMuApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AAA757CA2D1902680092A484 /* Build configuration list for PBXNativeTarget "MurmurApp" */;
+			buildConfigurationList = AAA757CA2D1902680092A484 /* Build configuration list for PBXNativeTarget "CapyMuMuApp" */;
 			buildPhases = (
 				AAA757A12D1902660092A484 /* Sources */,
 				AAA757A22D1902660092A484 /* Frameworks */,
@@ -155,18 +155,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				AAA757A72D1902660092A484 /* Murmur */,
+				AAA757A72D1902660092A484 /* CapyMuMu */,
 			);
-			name = MurmurApp;
+			name = CapyMuMuApp;
 			packageProductDependencies = (
 			);
 			productName = Murmur;
-			productReference = AAA757A52D1902660092A484 /* Murmur.app */;
+			productReference = AAA757A52D1902660092A484 /* CapyMuMu.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AAA757B52D1902680092A484 /* MurmurTests */ = {
+		AAA757B52D1902680092A484 /* CapyMuMuTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AAA757CD2D1902680092A484 /* Build configuration list for PBXNativeTarget "MurmurTests" */;
+			buildConfigurationList = AAA757CD2D1902680092A484 /* Build configuration list for PBXNativeTarget "CapyMuMuTests" */;
 			buildPhases = (
 				AAA757B22D1902680092A484 /* Sources */,
 				AAA757B32D1902680092A484 /* Frameworks */,
@@ -178,18 +178,18 @@
 				AAA757B82D1902680092A484 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				AAA757B92D1902680092A484 /* MurmurTests */,
+				AAA757B92D1902680092A484 /* CapyMuMuTests */,
 			);
-			name = MurmurTests;
+			name = CapyMuMuTests;
 			packageProductDependencies = (
 			);
 			productName = MurmurTests;
-			productReference = AAA757B62D1902680092A484 /* MurmurTests.xctest */;
+			productReference = AAA757B62D1902680092A484 /* CapyMuMuTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		AAA757BF2D1902680092A484 /* MurmurUITests */ = {
+		AAA757BF2D1902680092A484 /* CapyMuMuUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AAA757D02D1902680092A484 /* Build configuration list for PBXNativeTarget "MurmurUITests" */;
+			buildConfigurationList = AAA757D02D1902680092A484 /* Build configuration list for PBXNativeTarget "CapyMuMuUITests" */;
 			buildPhases = (
 				AAA757BC2D1902680092A484 /* Sources */,
 				AAA757BD2D1902680092A484 /* Frameworks */,
@@ -201,13 +201,13 @@
 				AAA757C22D1902680092A484 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				AAA757C32D1902680092A484 /* MurmurUITests */,
+				AAA757C32D1902680092A484 /* CapyMuMuUITests */,
 			);
-			name = MurmurUITests;
+			name = CapyMuMuUITests;
 			packageProductDependencies = (
 			);
 			productName = MurmurUITests;
-			productReference = AAA757C02D1902680092A484 /* MurmurUITests.xctest */;
+			productReference = AAA757C02D1902680092A484 /* CapyMuMuUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -233,7 +233,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AAA757A02D1902660092A484 /* Build configuration list for PBXProject "Murmur" */;
+			buildConfigurationList = AAA757A02D1902660092A484 /* Build configuration list for PBXProject "CapyMuMu" */;
 			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -248,9 +248,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AAA757A42D1902660092A484 /* MurmurApp */,
-				AAA757B52D1902680092A484 /* MurmurTests */,
-				AAA757BF2D1902680092A484 /* MurmurUITests */,
+				AAA757A42D1902660092A484 /* CapyMuMuApp */,
+				AAA757B52D1902680092A484 /* CapyMuMuTests */,
+				AAA757BF2D1902680092A484 /* CapyMuMuUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -306,12 +306,12 @@
 /* Begin PBXTargetDependency section */
 		AAA757B82D1902680092A484 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AAA757A42D1902660092A484 /* MurmurApp */;
+			target = AAA757A42D1902660092A484 /* CapyMuMuApp */;
 			targetProxy = AAA757B72D1902680092A484 /* PBXContainerItemProxy */;
 		};
 		AAA757C22D1902680092A484 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AAA757A42D1902660092A484 /* MurmurApp */;
+			target = AAA757A42D1902660092A484 /* CapyMuMuApp */;
 			targetProxy = AAA757C12D1902680092A484 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -448,19 +448,19 @@
 				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=macosx*]" = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Murmur/Murmur.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CapyMuMu/CapyMuMu.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Murmur/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"CapyMuMu/Preview Content\"";
 				DEVELOPMENT_TEAM = NJ84T58273;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Murmur;
+				INFOPLIST_KEY_CFBundleDisplayName = CapyMuMu;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -471,7 +471,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MurmurApp;
-				PRODUCT_NAME = Murmur;
+				PRODUCT_NAME = CapyMuMu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -486,19 +486,19 @@
 				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=macosx*]" = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Murmur/Murmur.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CapyMuMu/CapyMuMu.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Murmur/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"CapyMuMu/Preview Content\"";
 				DEVELOPMENT_TEAM = NJ84T58273;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Murmur;
+				INFOPLIST_KEY_CFBundleDisplayName = CapyMuMu;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -509,7 +509,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MurmurApp;
-				PRODUCT_NAME = Murmur;
+				PRODUCT_NAME = CapyMuMu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -531,7 +531,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Murmur.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Murmur";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CapyMuMu.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CapyMuMu";
 			};
 			name = Debug;
 		};
@@ -550,7 +550,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Murmur.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Murmur";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CapyMuMu.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CapyMuMu";
 			};
 			name = Release;
 		};
@@ -591,7 +591,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AAA757A02D1902660092A484 /* Build configuration list for PBXProject "Murmur" */ = {
+		AAA757A02D1902660092A484 /* Build configuration list for PBXProject "CapyMuMu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AAA757C82D1902680092A484 /* Debug */,
@@ -600,7 +600,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AAA757CA2D1902680092A484 /* Build configuration list for PBXNativeTarget "MurmurApp" */ = {
+		AAA757CA2D1902680092A484 /* Build configuration list for PBXNativeTarget "CapyMuMuApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AAA757CB2D1902680092A484 /* Debug */,
@@ -609,7 +609,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AAA757CD2D1902680092A484 /* Build configuration list for PBXNativeTarget "MurmurTests" */ = {
+		AAA757CD2D1902680092A484 /* Build configuration list for PBXNativeTarget "CapyMuMuTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AAA757CE2D1902680092A484 /* Debug */,
@@ -618,7 +618,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AAA757D02D1902680092A484 /* Build configuration list for PBXNativeTarget "MurmurUITests" */ = {
+		AAA757D02D1902680092A484 /* Build configuration list for PBXNativeTarget "CapyMuMuUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AAA757D12D1902680092A484 /* Debug */,

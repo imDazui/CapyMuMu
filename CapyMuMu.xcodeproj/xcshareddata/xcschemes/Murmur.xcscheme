@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAA757A42D1902660092A484"
-               BuildableName = "Murmur.app"
-               BlueprintName = "MurmurApp"
-               ReferencedContainer = "container:Murmur.xcodeproj">
+               BuildableName = "CapyMuMu.app"
+               BlueprintName = "CapyMuMuApp"
+               ReferencedContainer = "container:CapyMuMu.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,9 +36,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAA757B52D1902680092A484"
-               BuildableName = "MurmurTests.xctest"
-               BlueprintName = "MurmurTests"
-               ReferencedContainer = "container:Murmur.xcodeproj">
+               BuildableName = "CapyMuMuTests.xctest"
+               BlueprintName = "CapyMuMuTests"
+               ReferencedContainer = "container:CapyMuMu.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAA757BF2D1902680092A484"
-               BuildableName = "MurmurUITests.xctest"
-               BlueprintName = "MurmurUITests"
-               ReferencedContainer = "container:Murmur.xcodeproj">
+               BuildableName = "CapyMuMuUITests.xctest"
+               BlueprintName = "CapyMuMuUITests"
+               ReferencedContainer = "container:CapyMuMu.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -69,9 +69,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAA757A42D1902660092A484"
-            BuildableName = "Murmur.app"
-            BlueprintName = "MurmurApp"
-            ReferencedContainer = "container:Murmur.xcodeproj">
+            BuildableName = "CapyMuMu.app"
+            BlueprintName = "CapyMuMuApp"
+            ReferencedContainer = "container:CapyMuMu.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -86,9 +86,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAA757A42D1902660092A484"
-            BuildableName = "Murmur.app"
-            BlueprintName = "MurmurApp"
-            ReferencedContainer = "container:Murmur.xcodeproj">
+            BuildableName = "CapyMuMu.app"
+            BlueprintName = "CapyMuMuApp"
+            ReferencedContainer = "container:CapyMuMu.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
