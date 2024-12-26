@@ -5,56 +5,52 @@ import AVFoundation
 
 // MARK: - Audio Models
 enum AudioType: String, CaseIterable, Identifiable, Codable {
-    case beach = "Beach"
-    case birds = "Birds"
-    case dryer = "Dryer"
-    case fire = "Fire"
-    case forest_waterfall = "Forest_waterfall"
-    case humans = "Humans"
-    case ocean = "Ocean"
-    case rain = "Rain"
-    case storm = "Storm"
-    case stream = "Stream"
-    case thunder = "Thunder"
-    case underwater = "Underwater"
-    case waves = "Waves"
+    case birds = "Birds and Crickets"
+    case blizzard = "Blizzard Winter"
+    case cat = "Cat Purring"
+    case fire = "Fire Bonfire"
+    case heartbeat = "Heartbeat"
+    case ocean = "Ocean Waves"
+    case rain = "Rainy Day"
+    case metro = "Saint Petersburg Metro"
+    case waves = "Sea Waves"
+    case train = "Train Passing By"
+    case rainforest = "Tropical Rainforest"
+    case wind = "Wind Noise"
     
     var id: String { rawValue }
     
     var displayName: String {
         switch self {
-        case .beach: return "海滩"
-        case .birds: return "鸟鸣"
-        case .dryer: return "烘干机"
-        case .fire: return "火焰"
-        case .forest_waterfall: return "森林瀑布"
-        case .humans: return "人声"
-        case .ocean: return "海洋"
-        case .rain: return "下雨"
-        case .storm: return "暴风雨"
-        case .stream: return "溪流"
-        case .thunder: return "雷声"
-        case .underwater: return "水下"
+        case .birds: return "鸟鸣蟋蟀"
+        case .blizzard: return "暴风雪"
+        case .cat: return "猫咪呼噜"
+        case .fire: return "篝火"
+        case .heartbeat: return "心跳"
+        case .ocean: return "海浪"
+        case .rain: return "雨天"
+        case .metro: return "地铁"
         case .waves: return "海浪"
+        case .train: return "火车"
+        case .rainforest: return "热带雨林"
+        case .wind: return "风声"
         }
     }
     
-    // 添加图标匹配
     var iconName: String {
         switch self {
-        case .beach: return "beach.umbrella"
         case .birds: return "bird"
-        case .dryer: return "washer"
+        case .blizzard: return "snowflake"
+        case .cat: return "cat"
         case .fire: return "flame"
-        case .forest_waterfall: return "leaf"
-        case .humans: return "person.2"
+        case .heartbeat: return "heart"
         case .ocean: return "water.waves"
         case .rain: return "cloud.rain"
-        case .storm: return "cloud.bolt.rain"
-        case .stream: return "drop"
-        case .thunder: return "cloud.bolt"
-        case .underwater: return "bubble.right"
+        case .metro: return "tram"
         case .waves: return "water.waves"
+        case .train: return "train.side.front.car"
+        case .rainforest: return "leaf"
+        case .wind: return "wind"
         }
     }
 }
@@ -442,14 +438,14 @@ class AudioManager: ObservableObject {
         selectedTypes.removeAll()
         
         // 随机选择2-5个声音
-        let count = Int.random(in: 2...5)
+        let count = Int.random(in: 1...3)
         let allTypes = Array(AudioType.allCases)
         let shuffled = allTypes.shuffled()
         
         // 选择并设置音量
         for type in shuffled.prefix(count) {
             selectedTypes.insert(type)
-            volumes[type] = Float.random(in: 0.3...0.7)
+            volumes[type] = Float.random(in: 0.1...0.3)
         }
         
         // 自动开始播放

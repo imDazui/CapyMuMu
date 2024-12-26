@@ -31,41 +31,41 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		AAA7583F2D190F940092A484 /* Exceptions for "CapyMuMu" folder in "CapyMuMuTests" target */ = {
+		AA99FC512D1D502500231C9D /* Exceptions for "CapyMuMu" folder in "CapyMuMuTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Resources/Audio/Beach.mp3,
-				Resources/Audio/Birds.mp3,
-				Resources/Audio/Dryer.mp3,
-				Resources/Audio/Fire.mp3,
-				Resources/Audio/Forest_waterfall.mp3,
-				Resources/Audio/Humans.mp3,
-				Resources/Audio/Ocean.mp3,
-				Resources/Audio/Rain.mp3,
-				Resources/Audio/Storm.mp3,
-				Resources/Audio/Stream.mp3,
-				Resources/Audio/Thunder.mp3,
-				Resources/Audio/Underwater.mp3,
-				Resources/Audio/Waves.mp3,
+				"Resources/Audio/Birds and Crickets.mp3",
+				"Resources/Audio/Blizzard Winter.mp3",
+				"Resources/Audio/Cat Purring.mp3",
+				"Resources/Audio/Fire Bonfire.mp3",
+				Resources/Audio/Heartbeat.mp3,
+				"Resources/Audio/Ocean Waves.mp3",
+				"Resources/Audio/Rainy Day.mp3",
+				"Resources/Audio/Saint Petersburg Metro.mp3",
+				"Resources/Audio/Sea Waves.mp3",
+				"Resources/Audio/Train Passing By.mp3",
+				"Resources/Audio/Tropical Rainforest.mp3",
+				"Resources/Audio/Wind Noise.mp3",
+				"Resources/Music/Spatial of Nature.mp3",
 			);
 			target = AAA757B52D1902680092A484 /* CapyMuMuTests */;
 		};
-		AAA758402D190F940092A484 /* Exceptions for "CapyMuMu" folder in "CapyMuMuUITests" target */ = {
+		AA99FC522D1D502500231C9D /* Exceptions for "CapyMuMu" folder in "CapyMuMuUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Resources/Audio/Beach.mp3,
-				Resources/Audio/Birds.mp3,
-				Resources/Audio/Dryer.mp3,
-				Resources/Audio/Fire.mp3,
-				Resources/Audio/Forest_waterfall.mp3,
-				Resources/Audio/Humans.mp3,
-				Resources/Audio/Ocean.mp3,
-				Resources/Audio/Rain.mp3,
-				Resources/Audio/Storm.mp3,
-				Resources/Audio/Stream.mp3,
-				Resources/Audio/Thunder.mp3,
-				Resources/Audio/Underwater.mp3,
-				Resources/Audio/Waves.mp3,
+				"Resources/Audio/Birds and Crickets.mp3",
+				"Resources/Audio/Blizzard Winter.mp3",
+				"Resources/Audio/Cat Purring.mp3",
+				"Resources/Audio/Fire Bonfire.mp3",
+				Resources/Audio/Heartbeat.mp3,
+				"Resources/Audio/Ocean Waves.mp3",
+				"Resources/Audio/Rainy Day.mp3",
+				"Resources/Audio/Saint Petersburg Metro.mp3",
+				"Resources/Audio/Sea Waves.mp3",
+				"Resources/Audio/Train Passing By.mp3",
+				"Resources/Audio/Tropical Rainforest.mp3",
+				"Resources/Audio/Wind Noise.mp3",
+				"Resources/Music/Spatial of Nature.mp3",
 			);
 			target = AAA757BF2D1902680092A484 /* CapyMuMuUITests */;
 		};
@@ -75,8 +75,8 @@
 		AAA757A72D1902660092A484 /* CapyMuMu */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				AAA7583F2D190F940092A484 /* Exceptions for "CapyMuMu" folder in "CapyMuMuTests" target */,
-				AAA758402D190F940092A484 /* Exceptions for "CapyMuMu" folder in "CapyMuMuUITests" target */,
+				AA99FC512D1D502500231C9D /* Exceptions for "CapyMuMu" folder in "CapyMuMuTests" target */,
+				AA99FC522D1D502500231C9D /* Exceptions for "CapyMuMu" folder in "CapyMuMuUITests" target */,
 			);
 			path = CapyMuMu;
 			sourceTree = "<group>";
