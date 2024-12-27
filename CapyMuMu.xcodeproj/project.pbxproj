@@ -30,54 +30,9 @@
 		AAA757D32D1902890092A484 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		AA99FC512D1D502500231C9D /* Exceptions for "CapyMuMu" folder in "CapyMuMuTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Resources/Audio/Birds and Crickets.mp3",
-				"Resources/Audio/Blizzard Winter.mp3",
-				"Resources/Audio/Cat Purring.mp3",
-				"Resources/Audio/Fire Bonfire.mp3",
-				Resources/Audio/Heartbeat.mp3,
-				"Resources/Audio/Ocean Waves.mp3",
-				"Resources/Audio/Rainy Day.mp3",
-				"Resources/Audio/Saint Petersburg Metro.mp3",
-				"Resources/Audio/Sea Waves.mp3",
-				"Resources/Audio/Train Passing By.mp3",
-				"Resources/Audio/Tropical Rainforest.mp3",
-				"Resources/Audio/Wind Noise.mp3",
-				"Resources/Music/Spatial of Nature.mp3",
-			);
-			target = AAA757B52D1902680092A484 /* CapyMuMuTests */;
-		};
-		AA99FC522D1D502500231C9D /* Exceptions for "CapyMuMu" folder in "CapyMuMuUITests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Resources/Audio/Birds and Crickets.mp3",
-				"Resources/Audio/Blizzard Winter.mp3",
-				"Resources/Audio/Cat Purring.mp3",
-				"Resources/Audio/Fire Bonfire.mp3",
-				Resources/Audio/Heartbeat.mp3,
-				"Resources/Audio/Ocean Waves.mp3",
-				"Resources/Audio/Rainy Day.mp3",
-				"Resources/Audio/Saint Petersburg Metro.mp3",
-				"Resources/Audio/Sea Waves.mp3",
-				"Resources/Audio/Train Passing By.mp3",
-				"Resources/Audio/Tropical Rainforest.mp3",
-				"Resources/Audio/Wind Noise.mp3",
-				"Resources/Music/Spatial of Nature.mp3",
-			);
-			target = AAA757BF2D1902680092A484 /* CapyMuMuUITests */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AAA757A72D1902660092A484 /* CapyMuMu */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				AA99FC512D1D502500231C9D /* Exceptions for "CapyMuMu" folder in "CapyMuMuTests" target */,
-				AA99FC522D1D502500231C9D /* Exceptions for "CapyMuMu" folder in "CapyMuMuUITests" target */,
-			);
 			path = CapyMuMu;
 			sourceTree = "<group>";
 		};

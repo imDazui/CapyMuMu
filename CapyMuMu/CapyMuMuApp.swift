@@ -5,52 +5,82 @@ import AVFoundation
 
 // MARK: - Audio Models
 enum AudioType: String, CaseIterable, Identifiable, Codable {
-    case birds = "Birds and Crickets"
-    case blizzard = "Blizzard Winter"
-    case cat = "Cat Purring"
-    case fire = "Fire Bonfire"
-    case heartbeat = "Heartbeat"
-    case ocean = "Ocean Waves"
-    case rain = "Rainy Day"
-    case metro = "Saint Petersburg Metro"
-    case waves = "Sea Waves"
-    case train = "Train Passing By"
-    case rainforest = "Tropical Rainforest"
-    case wind = "Wind Noise"
+    case birdsAndCrickets = "sound-audio-Birds and Crickets"
+    case blizzardWinter = "sound-audio-Blizzard Winter"
+    case catPurring = "sound-audio-Cat Purring"
+    case fireBonfire = "sound-audio-Fire Bonfire"
+    case heartbeat = "sound-audio-Heartbeat"
+    case oceanWaves = "sound-audio-Ocean Waves"
+    case rainyDay = "sound-audio-Rainy Day"
+    case saintPetersburgMetro = "sound-audio-Saint Petersburg Metro"
+    case seaWaves = "sound-audio-Sea Waves"
+    case trainPassingBy = "sound-audio-Train Passing By"
+    case tropicalRainforest = "sound-audio-Tropical Rainforest"
+    case windNoise = "sound-audio-Wind Noise"
     
     var id: String { rawValue }
     
     var displayName: String {
         switch self {
-        case .birds: return "鸟鸣蟋蟀"
-        case .blizzard: return "暴风雪"
-        case .cat: return "猫咪呼噜"
-        case .fire: return "篝火"
+        case .birdsAndCrickets: return "鸟鸣蟋蟀"
+        case .blizzardWinter: return "暴风雪"
+        case .catPurring: return "猫咪呼噜"
+        case .fireBonfire: return "篝火"
         case .heartbeat: return "心跳"
-        case .ocean: return "海浪"
-        case .rain: return "雨天"
-        case .metro: return "地铁"
-        case .waves: return "海浪"
-        case .train: return "火车"
-        case .rainforest: return "热带雨林"
-        case .wind: return "风声"
+        case .oceanWaves: return "海浪"
+        case .rainyDay: return "雨天"
+        case .saintPetersburgMetro: return "地铁"
+        case .seaWaves: return "海浪"
+        case .trainPassingBy: return "火车"
+        case .tropicalRainforest: return "热带雨林"
+        case .windNoise: return "风声"
         }
     }
     
     var iconName: String {
         switch self {
-        case .birds: return "bird"
-        case .blizzard: return "snowflake"
-        case .cat: return "cat"
-        case .fire: return "flame"
+        case .birdsAndCrickets: return "bird"
+        case .blizzardWinter: return "snowflake"
+        case .catPurring: return "cat"
+        case .fireBonfire: return "flame"
         case .heartbeat: return "heart"
-        case .ocean: return "water.waves"
-        case .rain: return "cloud.rain"
-        case .metro: return "tram"
-        case .waves: return "water.waves"
-        case .train: return "train.side.front.car"
-        case .rainforest: return "leaf"
-        case .wind: return "wind"
+        case .oceanWaves: return "water.waves"
+        case .rainyDay: return "cloud.rain"
+        case .saintPetersburgMetro: return "tram"
+        case .seaWaves: return "water.waves"
+        case .trainPassingBy: return "train.side.front.car"
+        case .tropicalRainforest: return "leaf"
+        case .windNoise: return "wind"
+        }
+    }
+}
+
+// MARK: - Music Model
+enum MusicType: String, CaseIterable, Identifiable, Codable {
+    case spatialOfNature = "sound-music-Spatial of Nature"
+    case balancedbeat = "sound-music-balancedbeat"
+    case harmonichorizons = "sound-music-harmonichorizons"
+    
+    var id: String { rawValue }
+    
+    var displayName: String {
+        switch self {
+        case .spatialOfNature: return "自然空间"
+        case .balancedbeat: return "平衡节拍"
+        case .harmonichorizons: return "地平线"
+        }
+    }
+    
+    var iconName: String {
+        "music.note"
+    }
+    
+    var fileExtension: String {
+        switch self {
+        case .spatialOfNature:
+            return "mp3"
+        case .balancedbeat, .harmonichorizons:
+            return "m4a"
         }
     }
 }
@@ -128,9 +158,6 @@ class AudioPlayerPair {
     func play() {
         guard !isPlaying else { return }
         
-        print("Starting playback with fade in")
-        isInFadeTransition = true
-        
         // 开始时将音量设为 0 并逐渐淡入
         let currentPlayer = activePlayer == 1 ? player1 : player2
         currentPlayer.volume = 0
@@ -140,7 +167,6 @@ class AudioPlayerPair {
     }
     
     private func performInitialFadeIn(for player: AVAudioPlayer) {
-        print("Performing initial fade in")
         let fadeSteps = 60 // 增加步数使过渡更平滑
         let stepDuration = crossfadeDuration / TimeInterval(fadeSteps)
         var step = 0
@@ -157,13 +183,10 @@ class AudioPlayerPair {
             let newVolume = self.targetVolume * progress
             player.volume = newVolume
             
-            print("Fade in step \(step)/\(fadeSteps), volume: \(newVolume)")
-            
             if step >= fadeSteps {
                 timer.invalidate()
                 self.isInFadeTransition = false
                 player.volume = self.targetVolume
-                print("Fade in complete, final volume: \(player.volume)")
                 self.scheduleCrossfade()
             }
         }
@@ -262,15 +285,96 @@ class AudioPlayerPair {
     }
 }
 
+// MARK: - Audio File Management
+extension AudioManager {
+    // 获取环境音频文件的 URL
+    private func getAudioFileURL(_ type: AudioType) -> URL? {
+        // 直接从 Resources 目录加载
+        if let url = Bundle.main.url(forResource: type.rawValue, withExtension: "mp3") {
+            return url
+        }
+        print("Error: Could not find audio file: \(type.rawValue).mp3")
+        return nil
+    }
+    
+    // 获取音乐文件的 URL
+    private func getMusicFileURL(_ music: MusicType) -> URL? {
+        // 直接从 Resources 目录加载
+        if let url = Bundle.main.url(forResource: music.rawValue, withExtension: music.fileExtension) {
+            return url
+        }
+        print("Error: Could not find music file: \(music.rawValue).\(music.fileExtension)")
+        return nil
+    }
+    
+    // 播放环境音效
+    func playAudio(_ type: AudioType) {
+        if let playerPair = playerPairs[type] {
+            playerPair.play()
+        }
+    }
+    
+    func stopAudio(_ type: AudioType) {
+        if let playerPair = playerPairs[type] {
+            playerPair.stop()
+        }
+    }
+    
+    // 播放音乐
+    func playMusic(_ music: MusicType) {
+        guard let url = getMusicFileURL(music) else {
+            print("Error: Could not find music file: \(music.rawValue).\(music.fileExtension)")
+            return
+        }
+        
+        // 停止当前正在播放的音乐
+        stopMusic()
+        
+        // 创建新的播放器并开始播放
+        if let player = try? AVAudioPlayer(contentsOf: url) {
+            musicPlayer = player
+            selectedMusic = music
+            player.numberOfLoops = -1 // 循环播放
+            player.volume = musicVolume
+            player.play()
+            isMusicPlaying = true
+        }
+    }
+    
+    func stopMusic(_ music: MusicType? = nil) {
+        if let music = music {
+            if selectedMusic == music {
+                musicPlayer?.stop()
+                musicPlayer = nil
+                selectedMusic = nil
+                isMusicPlaying = false
+            }
+        } else {
+            musicPlayer?.stop()
+            musicPlayer = nil
+            selectedMusic = nil
+            isMusicPlaying = false
+        }
+    }
+}
+
 // MARK: - Audio Manager
 class AudioManager: ObservableObject {
     @Published var selectedTypes: Set<AudioType> = []
+    @Published var selectedMusic: MusicType? = nil
     @Published var volumes: [AudioType: Float] = [:]
+    @Published var musicVolume: Float = 0.5 {
+        didSet {
+            musicPlayer?.volume = musicVolume
+        }
+    }
     @Published var isPlaying: Bool = false
+    @Published var isMusicPlaying: Bool = false
     @Published var selectedTimeLimit: TimeLimit = .unlimited
     @Published var remainingTime: TimeInterval = 0
     
     private var playerPairs: [AudioType: AudioPlayerPair] = [:]
+    private var musicPlayer: AVAudioPlayer?
     private var timer: Timer?
     private var countdownTimer: Timer?
     
@@ -279,93 +383,24 @@ class AudioManager: ObservableObject {
     }
     
     private func setupAudioPlayers() {
-        print("\n=== Setting up Audio Players ===")
-        print("Bundle path: \(Bundle.main.bundlePath)")
-        
+        // 创建音频播放器
         for type in AudioType.allCases {
-            print("\nSetting up player for \(type.rawValue)")
-            
-            // 尝试多个可能的路径
-            var audioURL: URL?
-            
-            // 1. 尝试直接从 Bundle 加载
-            if let url1 = Bundle.main.url(forResource: type.rawValue, withExtension: "mp3") {
-                audioURL = url1
-                print("Found audio file in bundle root: \(url1.path)")
-            }
-            // 2. 尝试从 Resources/Audio 目录加载
-            else if let url2 = Bundle.main.url(forResource: type.rawValue,
-                                             withExtension: "mp3",
-                                             subdirectory: "Resources/Audio") {
-                audioURL = url2
-                print("Found audio file in Resources/Audio: \(url2.path)")
-            }
-            // 3. 尝试从 Audio 目录加载
-            else if let url3 = Bundle.main.url(forResource: type.rawValue,
-                                             withExtension: "mp3",
-                                             subdirectory: "Audio") {
-                audioURL = url3
-                print("Found audio file in Audio: \(url3.path)")
-            }
-            
-            if let url = audioURL {
-                if let playerPair = AudioPlayerPair(url: url) {
-                    playerPairs[type] = playerPair
-                    volumes[type] = 0.5
-                    print("Created player pair for \(type.rawValue)")
-                    
-                    // Test the player pair
-                    playerPair.play()
-                    playerPair.stop()
-                    print("Player pair test successful")
-                } else {
-                    print("Failed to create player pair for \(type.rawValue)")
-                }
-            } else {
-                print("Could not find audio file for \(type.rawValue)")
+            if let url = getAudioFileURL(type) {
+                playerPairs[type] = AudioPlayerPair(url: url)
+                volumes[type] = 0.5
             }
         }
-        
-        print("\nTotal player pairs created: \(playerPairs.count)")
     }
     
     func toggleSound(_ type: AudioType) {
-        print("\nToggling sound for \(type.rawValue)")
         if selectedTypes.contains(type) {
-            print("Removing \(type.rawValue) from selection")
             selectedTypes.remove(type)
-            stopSound(type)
+            stopAudio(type)
             isPlaying = !selectedTypes.isEmpty
         } else {
-            print("Adding \(type.rawValue) to selection")
             selectedTypes.insert(type)
-            playSound(type)
+            playAudio(type)
             isPlaying = true
-        }
-        print("Current playing state: \(isPlaying)")
-    }
-    
-    func playSound(_ type: AudioType) {
-        print("\nAttempting to play \(type.rawValue)")
-        guard let playerPair = playerPairs[type],
-              let volume = volumes[type] else {
-            print("Error: No player pair or volume setting found for \(type.rawValue)")
-            return
-        }
-        
-        playerPair.volume = volume
-        if !playerPair.isPlaying {
-            playerPair.play()
-            print("\(type.rawValue) playback started")
-        } else {
-            print("\(type.rawValue) is already playing")
-        }
-    }
-    
-    func stopSound(_ type: AudioType) {
-        if let playerPair = playerPairs[type] {
-            playerPair.stop()
-            print("Stopped playing \(type.rawValue)")
         }
     }
     
@@ -373,19 +408,19 @@ class AudioManager: ObservableObject {
         volumes[type] = volume
         if let playerPair = playerPairs[type], selectedTypes.contains(type) {
             playerPair.volume = volume
-            print("Updated volume for \(type.rawValue): \(volume)")
         }
     }
     
     func togglePlayback() {
         isPlaying.toggle()
         if isPlaying {
-            selectedTypes.forEach { playSound($0) }
+            selectedTypes.forEach { playAudio($0) }
+            if let music = selectedMusic {
+                playMusic(music)
+            }
             startTimer()
-            print("Started playing all selected sounds")
         } else {
             stopAll()
-            print("Stopped all sounds")
         }
     }
     
@@ -413,8 +448,6 @@ class AudioManager: ObservableObject {
                 self?.stopAll()
             }
         }
-        
-        print("Starting timer for \(selectedTimeLimit.rawValue)")
     }
     
     func stopTimer() {
@@ -427,7 +460,8 @@ class AudioManager: ObservableObject {
     
     func stopAll() {
         isPlaying = false
-        selectedTypes.forEach { stopSound($0) }
+        selectedTypes.forEach { stopAudio($0) }
+        stopMusic()
         stopTimer()
     }
     
@@ -450,7 +484,7 @@ class AudioManager: ObservableObject {
         
         // 自动开始播放
         isPlaying = true
-        selectedTypes.forEach { playSound($0) }
+        selectedTypes.forEach { playAudio($0) }
         startTimer()
     }
     
@@ -460,6 +494,7 @@ class AudioManager: ObservableObject {
         
         // 设置新的配置
         selectedTypes = Set(config.audioTypes)
+        selectedMusic = config.music
         selectedTimeLimit = config.timeLimit
         
         // 为每个音频类型设置默认音量
@@ -475,8 +510,17 @@ class AudioManager: ObservableObject {
     
     private func startPlaying() {
         isPlaying = true
-        selectedTypes.forEach { playSound($0) }
+        selectedTypes.forEach { playAudio($0) }
+        if let music = selectedMusic {
+            playMusic(music)
+        }
         startTimer()
+    }
+    
+    private func cleanupMusicPlayer() {
+        musicPlayer?.stop()
+        musicPlayer = nil
+        isMusicPlaying = false
     }
 }
 
@@ -484,6 +528,7 @@ class AudioManager: ObservableObject {
 struct SavedConfiguration: Codable, Identifiable {
     let id: UUID
     let audioTypes: [AudioType]
+    let music: MusicType?  // 添加音乐类型
     let timeLimit: TimeLimit
     let timestamp: Date
     
@@ -506,10 +551,11 @@ class SavedConfigurationManager: ObservableObject {
         loadConfigurations()
     }
     
-    func saveConfiguration(audioTypes: [AudioType], timeLimit: TimeLimit) {
+    func saveConfiguration(audioTypes: [AudioType], music: MusicType? = nil, timeLimit: TimeLimit) {
         let configuration = SavedConfiguration(
             id: UUID(),
             audioTypes: audioTypes,
+            music: music,
             timeLimit: timeLimit,
             timestamp: Date()
         )
@@ -652,7 +698,9 @@ struct MenuItemView: View {
                 .fill(Color.blue.opacity(isHovering ? 0.8 : 0))
         )
         .onHover { hovering in
-            isHovering = hovering
+            withAnimation(.easeInOut(duration: 0.2)) {
+                isHovering = hovering
+            }
         }
     }
 }
@@ -687,8 +735,98 @@ struct MenuToggleView: View {
                 .fill(Color.blue.opacity(isHovering ? 0.8 : 0))
         )
         .onHover { hovering in
-            isHovering = hovering
+            withAnimation(.easeInOut(duration: 0.2)) {
+                isHovering = hovering
+            }
         }
+    }
+}
+
+// MARK: - Music List View
+struct MusicListView: View {
+    @EnvironmentObject private var audioManager: AudioManager
+    @Environment(\.colorScheme) private var colorScheme
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            ForEach(MusicType.allCases) { music in
+                Button(action: {
+                    if audioManager.selectedMusic == music {
+                        audioManager.selectedMusic = nil
+                        audioManager.stopMusic()
+                    } else {
+                        audioManager.selectedMusic = music
+                        audioManager.playMusic(music)
+                    }
+                }) {
+                    HStack(spacing: 8) {
+                        // 状态图标
+                        Image(systemName: audioManager.selectedMusic == music ? "checkmark.circle" : music.iconName)
+                            .font(.system(size: 12))
+                            .foregroundColor(iconColor)
+                            .frame(width: 16)
+                        
+                        // 音乐名称
+                        Text(music.displayName)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .padding(.vertical, 5)
+                .padding(.horizontal)
+                .background(
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.primary.opacity(0.1))
+                        .opacity(audioManager.selectedMusic == music ? 1 : 0)
+                )
+            }
+        }
+        .padding(.vertical, 4)
+        .frame(width: 200)
+    }
+    
+    private var iconColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+}
+
+// MARK: - Music Menu View
+struct MusicMenuView: View {
+    @EnvironmentObject private var audioManager: AudioManager
+    @Binding var showMusicList: Bool
+    @Environment(\.colorScheme) private var colorScheme
+    
+    private var secondaryColor: Color {
+        colorScheme == .dark ? .gray : .secondary
+    }
+    
+    var body: some View {
+        Button(action: {
+            showMusicList.toggle()
+        }) {
+            HStack {
+                Text("音乐")
+                    .foregroundColor(.primary)
+                    .frame(alignment: .leading)
+                
+                Spacer()
+                
+                Text(audioManager.selectedMusic == nil ? "0/\(MusicType.allCases.count)" : "1/\(MusicType.allCases.count)")
+                    .font(.caption)
+                    .foregroundColor(secondaryColor)
+                    .frame(alignment: .trailing)
+                
+                Image(systemName: "chevron.down")
+                    .font(.caption)
+            }
+            .padding(.horizontal, 18)
+            .frame(maxWidth: .infinity)
+            .contentShape(Rectangle())
+            .background(Color.clear)
+        }
+        .buttonStyle(.plain)
+        .frame(maxWidth: .infinity)
     }
 }
 
@@ -700,69 +838,106 @@ struct SaveMenuView: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var hoveredConfigId: UUID? = nil
     
-    private var iconColor: Color {
-        colorScheme == .dark ? .white : .black
-    }
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Button(action: {
-                let audioTypes = Array(audioManager.selectedTypes)
-                configManager.saveConfiguration(
-                    audioTypes: audioTypes,
-                    timeLimit: audioManager.selectedTimeLimit
-                )
+                withAnimation(.easeOut(duration: 0.2)) {
+                    let audioTypes = Array(audioManager.selectedTypes)
+                    let music = audioManager.selectedMusic
+                    configManager.saveConfiguration(
+                        audioTypes: audioTypes,
+                        music: music,
+                        timeLimit: audioManager.selectedTimeLimit
+                    )
+                }
             }) {
                 Label("保存", systemImage: "plus")
+                    .foregroundColor(.primary)
             }
             .buttonStyle(.plain)
+            .padding(.vertical, 4)
             
             if !configManager.savedConfigurations.isEmpty {
                 Divider()
                 
                 ForEach(configManager.savedConfigurations) { config in
-                    HStack(spacing: 4) {
-                        // 删除按钮
-                        if hoveredConfigId == config.id {
-                            Button(action: {
-                                configManager.deleteConfiguration(config)
-                            }) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.secondary)
-                                    .imageScale(.small)
-                            }
-                            .buttonStyle(.plain)
-                            .transition(.opacity)
-                        }
-                        
-                        Button(action: {
-                            audioManager.loadConfiguration(config)
-                            isPresented = false  // 关闭菜单
-                        }) {
-                            HStack {
-                                // 声音图标
-                                HStack(spacing: 2) {
-                                    ForEach(config.audioTypes, id: \.self) { type in
-                                        Image(systemName: type.iconName)
-                                    }
-                                }
-                                Spacer()
-                                Text(config.formattedTime)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                        .buttonStyle(.plain)
-                    }
-                    .onHover { isHovered in
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            hoveredConfigId = isHovered ? config.id : nil
-                        }
-                    }
+                    ConfigurationRow(config: config, hoveredConfigId: $hoveredConfigId, isPresented: $isPresented)
+                        .environmentObject(audioManager)
+                        .environmentObject(configManager)
                 }
             }
         }
         .padding(8)
         .frame(minWidth: 200)
+        .drawingGroup()
+    }
+}
+
+struct ConfigurationRow: View {
+    let config: SavedConfiguration
+    @Binding var hoveredConfigId: UUID?
+    @Binding var isPresented: Bool
+    @EnvironmentObject private var audioManager: AudioManager
+    @EnvironmentObject private var configManager: SavedConfigurationManager
+    
+    var body: some View {
+        HStack(spacing: 4) {
+            if hoveredConfigId == config.id {
+                Button(action: {
+                    withAnimation(.easeOut(duration: 0.2)) {
+                        configManager.deleteConfiguration(config)
+                    }
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.secondary)
+                        .imageScale(.small)
+                }
+                .buttonStyle(.plain)
+                .transition(.opacity)
+            }
+            
+            Button(action: {
+                withAnimation(.easeOut(duration: 0.2)) {
+                    audioManager.loadConfiguration(config)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        isPresented = false
+                    }
+                }
+            }) {
+                HStack {
+                    // 环境音图标
+                    HStack(spacing: 2) {
+                        ForEach(config.audioTypes, id: \.self) { type in
+                            Image(systemName: type.iconName)
+                                .imageScale(.small)
+                        }
+                    }
+                    
+                    Spacer()
+                        .frame(width: 5)
+                    
+                    // 音乐图标（如果有）
+                    if let music = config.music {
+                        Image(systemName: music.iconName)
+                            .imageScale(.small)
+                    }
+                    
+                    Spacer()
+                    
+                    Text(config.formattedTime)
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                }
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.vertical, 2)
+        .contentShape(Rectangle())
+        .onHover { isHovered in
+            withAnimation(.easeInOut(duration: 0.2)) {
+                hoveredConfigId = isHovered ? config.id : nil
+            }
+        }
     }
 }
 
@@ -781,7 +956,7 @@ struct SoundMenuView: View {
             showAudioList.toggle()
         }) {
             HStack {
-                Text("声音")
+                Text("环境音")
                     .foregroundColor(.primary)
                     .frame(alignment: .leading)
                 
@@ -802,6 +977,59 @@ struct SoundMenuView: View {
         }
         .buttonStyle(.plain)
         .frame(maxWidth: .infinity)
+    }
+}
+
+// MARK: - Active Music View
+struct ActiveMusicView: View {
+    let music: MusicType
+    @EnvironmentObject private var audioManager: AudioManager
+    @Environment(\.colorScheme) private var colorScheme
+    @State private var isHovering = false
+    
+    private var iconColor: Color {
+        if isHovering {
+            return .red
+        }
+        return colorScheme == .dark ? .white : .black
+    }
+    
+    var body: some View {
+        HStack(spacing: 0) {
+            // 音乐图标/删除按钮
+            Button(action: {
+                if isHovering {
+                    audioManager.selectedMusic = nil
+                    audioManager.stopMusic()
+                }
+            }) {
+                Image(systemName: isHovering ? "xmark" : music.iconName)
+                    .font(.system(size: 12))
+                    .foregroundColor(iconColor)
+                    .frame(width: 20, height: 20)
+                    .padding(.trailing, 3)
+            }
+            .buttonStyle(.plain)
+            
+            // 音乐名称
+            Text(music.displayName)
+            
+            Spacer()
+            
+            // 音量滑块
+            CustomVolumeSlider(
+                value: Binding(
+                    get: { audioManager.musicVolume },
+                    set: { audioManager.musicVolume = $0 }
+                )
+            )
+            .frame(width: 180)
+        }
+        .padding(.vertical, 4)
+        .padding(.horizontal)
+        .onHover { hovering in
+            isHovering = hovering
+        }
     }
 }
 
@@ -866,6 +1094,7 @@ struct MenuContentView: View {
     @Environment(\.colorScheme) private var colorScheme
     @State private var showingTimeOptions = false
     @State private var showAudioList = false
+    @State private var showMusicList = false
     @State private var showSaveMenu = false
     @State private var isHovering = false
     @State private var isTimerHovering = false
@@ -1036,7 +1265,7 @@ struct MenuContentView: View {
             Divider()
                 .padding(.horizontal, 9)
             
-            if audioManager.selectedTypes.isEmpty {
+            if audioManager.selectedTypes.isEmpty && audioManager.selectedMusic == nil {
                 Text("请添加声音")
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -1045,8 +1274,14 @@ struct MenuContentView: View {
                 // 活跃的音频列表
                 ScrollView {
                     VStack(spacing: 0) {
+                        // 环境音列表
                         ForEach(Array(audioManager.selectedTypes).sorted(by: { $0.displayName < $1.displayName })) { type in
                             ActiveSoundView(type: type)
+                        }
+                        
+                        // 音乐视图
+                        if let selectedMusic = audioManager.selectedMusic {
+                            ActiveMusicView(music: selectedMusic)
                         }
                     }
                 }
@@ -1057,9 +1292,16 @@ struct MenuContentView: View {
             
             // 声音选择区域
             SoundMenuView(showAudioList: $showAudioList)
-                .padding(.vertical, 5)  // 只保留垂直内边距
+                .padding(.top, 5)
                 .popover(isPresented: $showAudioList, arrowEdge: .bottom) {
                     AudioListView()
+                }
+            
+            // 音乐选择区域
+            MusicMenuView(showMusicList: $showMusicList)
+                .padding(.bottom, 5)
+                .popover(isPresented: $showMusicList, arrowEdge: .bottom) {
+                    MusicListView()
                 }
             
             Divider()
@@ -1116,6 +1358,12 @@ class AppState: ObservableObject {
 struct CapyMuMuApp: App {
     @StateObject private var appState = AppState()
     @StateObject private var audioManager = AudioManager()
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    init() {
+        // 设置日志过滤
+        UserDefaults.standard.set(true, forKey: "OS_ACTIVITY_MODE")
+    }
     
     var body: some Scene {
         MenuBarExtra {
@@ -1127,5 +1375,15 @@ struct CapyMuMuApp: App {
                 .symbolRenderingMode(.hierarchical)
         }
         .menuBarExtraStyle(.window)
+    }
+}
+
+class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        // 初始化应用
+    }
+    
+    func applicationWillTerminate(_ aNotification: Notification) {
+        // 清理工作
     }
 }
