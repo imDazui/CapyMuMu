@@ -575,7 +575,7 @@ struct AudioListView: View {
     }
     
     private var iconColor: Color {
-        colorScheme == .dark ? .white : .blue
+        colorScheme == .dark ? .white : .black
     }
 }
 
@@ -589,7 +589,7 @@ struct ActiveSoundView: View {
         if isHovering {
             return .red
         }
-        return colorScheme == .dark ? .white : .blue
+        return colorScheme == .dark ? .white : .black
     }
     
     var body: some View {
@@ -701,7 +701,7 @@ struct SaveMenuView: View {
     @State private var hoveredConfigId: UUID? = nil
     
     private var iconColor: Color {
-        colorScheme == .dark ? .white : .blue
+        colorScheme == .dark ? .white : .black
     }
     
     var body: some View {
@@ -867,9 +867,13 @@ struct MenuContentView: View {
     @State private var showingTimeOptions = false
     @State private var showAudioList = false
     @State private var showSaveMenu = false
-    
+    @State private var isHovering = false
+    @State private var isTimerHovering = false
+    @State private var isRandomSelectHovering = false
+    @State private var isSaveHovering = false
+
     private var iconColor: Color {
-        colorScheme == .dark ? .white : .blue
+        colorScheme == .dark ? .white : .black
     }
     
     private func formatTime(_ seconds: TimeInterval) -> String {
@@ -888,33 +892,66 @@ struct MenuContentView: View {
             // 标题和播放控制
             HStack {
                 
+                // 播放按钮
                 Button(action: {
                     audioManager.togglePlayback()
                 }) {
-                    Image(systemName: audioManager.isPlaying ? "pause" : "play")
+                    Image(systemName: audioManager.isPlaying ? "pause.fill" : "play.fill")
+                        .resizable()
+                        .frame(width: 14, height: 14)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
+                        .aspectRatio(contentMode: .fit)
                         .font(.title2)
                         .foregroundColor(iconColor)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color.primary.opacity(isHovering ? 0.1 : 0))
+                        )
                 }
                 .buttonStyle(.plain)
-                .padding(.trailing, 5)
-
+                .onHover { hovering in
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        isHovering = hovering
+                    }
+                }
+                
+                Spacer()
+                    .frame(width: 1)
+                
                 // 时间选择按钮
                 Button(action: {
                     showingTimeOptions.toggle()
                 }) {
                     Image(systemName: "timer")
+                        .resizable()
+                        .frame(width: 14, height: 14)
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 4)
                         .font(.title2)
                         .foregroundColor(iconColor)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color.primary.opacity(isTimerHovering ? 0.1 : 0))
+                        )
                 }
                 .buttonStyle(.plain)
+                .onHover { hovering in
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        isTimerHovering = hovering
+                    }
+                }
+                
+                Spacer()
+                    .frame(width: 1)
                 
                 // 倒计时显示
                 Text(formatTime(audioManager.remainingTime))
                     .font(.system(.body, design: .monospaced))
-                    .foregroundColor(iconColor)
+                    .foregroundColor(iconColor.opacity(0.75))
                 
-
                 Spacer()
+
                 .popover(isPresented: $showingTimeOptions, arrowEdge: .bottom) {
                     VStack(spacing: 8) {
                         ForEach(TimeLimit.allCases) { limit in
@@ -946,26 +983,54 @@ struct MenuContentView: View {
                     audioManager.randomSelectAndPlay()
                 }) {
                     Image(systemName: "shuffle")
+                        .resizable()
+                        .frame(width: 14, height: 14)
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 4)
                         .font(.title2)
                         .foregroundColor(iconColor)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color.primary.opacity(isRandomSelectHovering ? 0.1 : 0))
+                        )
                 }
                 .buttonStyle(.plain)
+                .onHover { hovering in
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        isRandomSelectHovering = hovering
+                    }
+                }
+                Spacer()
+                    .frame(width: 1)
                 
                 // 保存按钮
                 Button(action: {
                     showSaveMenu.toggle()
                 }) {
                     Image(systemName: "folder")
+                        .resizable()
+                        .frame(width: 14, height: 14)
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 4)
                         .font(.title2)
                         .foregroundColor(iconColor)
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color.primary.opacity(isSaveHovering ? 0.1 : 0))
+                        )
                 }
                 .buttonStyle(.plain)
+                .onHover { hovering in
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        isSaveHovering = hovering
+                    }
+                }
                 .popover(isPresented: $showSaveMenu, arrowEdge: .bottom) {
                     SaveMenuView(isPresented: $showSaveMenu)
                 }
                 
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 8)
             .padding(.top, 8)
             
             Divider()
