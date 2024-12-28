@@ -256,8 +256,8 @@ class AudioPlayerPair {
     private var activePlayer: Int = 1
     private var fadeTimer: Timer?
     private var fadeInOutTimer: Timer?
-    private let crossfadeDuration: TimeInterval = 0.3  // 增加到 0.3 秒，使过渡更自然
-    private let fadeSteps = 30  // 增加步数使过渡更平滑
+    private let crossfadeDuration: TimeInterval = 0.001  // 增加到 0.3 秒，使过渡更自然
+    private let fadeSteps = 1  // 增加步数使过渡更平滑
     private var targetVolume: Float = 0.5  // 默认音量调整为 0.5
     
     var volume: Float {
