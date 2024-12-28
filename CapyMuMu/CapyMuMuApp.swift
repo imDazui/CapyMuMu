@@ -5,69 +5,217 @@ import AVFoundation
 
 // MARK: - Audio Models
 enum AudioType: String, CaseIterable, Identifiable, Codable {
-    case birdsAndCrickets = "sound-audio-Birds and Crickets"
-    case blizzardWinter = "sound-audio-Blizzard Winter"
-    case catPurring = "sound-audio-Cat Purring"
-    case fireBonfire = "sound-audio-Fire Bonfire"
-    case heartbeat = "sound-audio-Heartbeat"
-    case oceanWaves = "sound-audio-Ocean Waves"
-    case rainyDay = "sound-audio-Rainy Day"
-    case saintPetersburgMetro = "sound-audio-Saint Petersburg Metro"
-    case seaWaves = "sound-audio-Sea Waves"
-    case trainPassingBy = "sound-audio-Train Passing By"
-    case tropicalRainforest = "sound-audio-Tropical Rainforest"
-    case windNoise = "sound-audio-Wind Noise"
-    
+    case beach = "sound-audio-beach"
+    case birds = "sound-audio-birds"
+    case campfire = "sound-audio-campfire"
+    case desert = "sound-audio-desert"
+    case forest = "sound-audio-forest"
+    case lake = "sound-audio-lake"
+    case meadow = "sound-audio-meadow"
+    case nightDeep = "sound-audio-nightdeep"
+    case nightLight = "sound-audio-nightlight"
+    case rain = "sound-audio-rain"
+    case river = "sound-audio-river"
+    case seagulls = "sound-audio-seagulls"
+    case thunder = "sound-audio-thunder"
+    case underwater = "sound-audio-underwater"
+    case whales = "sound-audio-whales"
+    case cat = "sound-audio-cat"
+    case bookPageTurning = "sound-audio-bookpageturning"
+    case cafe = "sound-audio-cafe"
+    case ventilator = "sound-audio-ventilator"
+    case vinyl = "sound-audio-vinyl"
+    case windBells = "sound-audio-windbells"
+    case writingWithPencil = "sound-audio-writingwithpencil"
+    case train = "sound-audio-train"
+    case spaceship = "sound-audio-spaceship"
+    case teapotBoiling = "sound-audio-teapotboiling"
+    case slime = "sound-audio-slime"
+    case oldTickingClock = "sound-audio-oldtickingclock"
+    case grassSprinkler = "sound-audio-grasssprinkler"
+    case iceCubes = "sound-audio-icecubes"
+    case keyboard = "sound-audio-keyboard"
+    case fan = "sound-audio-fan"
+    case fizzyDrink = "sound-audio-fizzydrink"
+    case blower = "sound-audio-blower"
+    case aquarium = "sound-audio-aquarium"
+    case airplane = "sound-audio-airplane"
+    case bubbleWrap = "sound-audio-bubblewrap"
+    case walkInTheWoods = "sound-audio-walkinthewoods"
+    case walkInTheWater = "sound-audio-walkinthewater"
+    case walkOnLeaves = "sound-audio-walkonleaves"
+    case walkOnSnow = "sound-audio-walkonsnow"
+    case whiteNoise = "sound-audio-whitenoise"
+    case pinkNoise = "sound-audio-pinknoise"
+    case blueNoise = "sound-audio-bluenoise"
+    case brownNoise = "sound-audio-brownnoise"
+    case greenNoise = "sound-audio-greennoise"
+    case silence = "sound-audio-silence"
+
     var id: String { rawValue }
     
     var displayName: String {
         switch self {
-        case .birdsAndCrickets: return "鸟鸣蟋蟀"
-        case .blizzardWinter: return "暴风雪"
-        case .catPurring: return "猫咪呼噜"
-        case .fireBonfire: return "篝火"
-        case .heartbeat: return "心跳"
-        case .oceanWaves: return "海浪"
-        case .rainyDay: return "雨天"
-        case .saintPetersburgMetro: return "地铁"
-        case .seaWaves: return "海浪"
-        case .trainPassingBy: return "火车"
-        case .tropicalRainforest: return "热带雨林"
-        case .windNoise: return "风声"
+        case .airplane: return "飞机"
+        case .aquarium: return "水族馆"
+        case .beach: return "海滩"
+        case .birds: return "鸟鸣"
+        case .blower: return "吹风机"
+        case .blueNoise: return "蓝噪音"
+        case .bookPageTurning: return "翻书声"
+        case .brownNoise: return "棕噪音"
+        case .bubbleWrap: return "气泡膜"
+        case .cafe: return "咖啡馆"
+        case .campfire: return "营火"
+        case .cat: return "猫咪"
+        case .desert: return "沙漠"
+        case .fan: return "风扇"
+        case .fizzyDrink: return "汽水"
+        case .forest: return "森林"
+        case .walkInTheWoods: return "树林漫步"
+        case .grassSprinkler: return "洒水器"
+        case .greenNoise: return "绿噪音"
+        case .iceCubes: return "冰块"
+        case .keyboard: return "键盘"
+        case .lake: return "湖泊"
+        case .river: return "河流"
+        case .meadow: return "草地"
+        case .nightDeep: return "深夜"
+        case .nightLight: return "夜晚"
+        case .oldTickingClock: return "钟表"
+        case .pinkNoise: return "粉噪音"
+        case .rain: return "雨声"
+        case .seagulls: return "海鸥"
+        case .silence: return "寂静"
+        case .slime: return "史莱姆"
+        case .spaceship: return "太空船"
+        case .teapotBoiling: return "烧水壶"
+        case .thunder: return "雷声"
+        case .train: return "火车"
+        case .underwater: return "水下"
+        case .ventilator: return "通风扇"
+        case .walkInTheWater: return "水中漫步"
+        case .vinyl: return "黑胶唱片"
+        case .walkOnLeaves: return "落叶漫步"
+        case .walkOnSnow: return "雪地漫步"
+        case .whales: return "鲸鱼"
+        case .whiteNoise: return "白噪音"
+        case .windBells: return "风铃"
+        case .writingWithPencil: return "铅笔写字"
         }
     }
     
     var iconName: String {
         switch self {
-        case .birdsAndCrickets: return "bird"
-        case .blizzardWinter: return "snowflake"
-        case .catPurring: return "cat"
-        case .fireBonfire: return "flame"
-        case .heartbeat: return "heart"
-        case .oceanWaves: return "water.waves"
-        case .rainyDay: return "cloud.rain"
-        case .saintPetersburgMetro: return "tram"
-        case .seaWaves: return "water.waves"
-        case .trainPassingBy: return "train.side.front.car"
-        case .tropicalRainforest: return "leaf"
-        case .windNoise: return "wind"
+        case .airplane: return "airplane"
+        case .aquarium: return "fish"
+        case .beach: return "beach.umbrella"
+        case .birds: return "bird"
+        case .blower: return "wind"
+        case .blueNoise, .brownNoise, .greenNoise, .pinkNoise, .whiteNoise: return "waveform"
+        case .bookPageTurning: return "book"
+        case .bubbleWrap: return "bubble.right"
+        case .cafe: return "cup.and.saucer"
+        case .campfire: return "flame"
+        case .cat: return "cat"
+        case .desert: return "sun.max"
+        case .fan, .ventilator: return "fan"
+        case .fizzyDrink: return "bubbles.and.sparkles"
+        case .forest: return "tree"
+        case .walkInTheWoods: return "tree"
+        case .grassSprinkler: return "sprinkler.and.droplets"
+        case .iceCubes: return "cube"
+        case .keyboard: return "keyboard"
+        case .lake: return "water.waves"
+        case .river: return "water.waves"
+        case .meadow: return "camera.macro"
+        case .nightDeep: return "moon.zzz"
+        case .nightLight: return "moon.stars"
+        case .oldTickingClock: return "clock"
+        case .rain: return "cloud.rain"
+        case .seagulls: return "bird.fill"
+        case .silence: return "speaker.slash"
+        case .slime: return "face.dashed"
+        case .spaceship: return "globe.americas"
+        case .teapotBoiling: return "humidifier"
+        case .thunder: return "cloud.bolt"
+        case .train: return "train.side.front.car"
+        case .underwater: return "water.waves.and.arrow.trianglehead.down"
+        case .walkInTheWater: return "water.waves"
+        case .vinyl: return "record.circle"
+        case .walkOnLeaves: return "leaf"
+        case .walkOnSnow: return "snowflake"
+        case .whales: return "fish"
+        case .windBells: return "bell"
+        case .writingWithPencil: return "pencil"
+        }
+    }
+    
+    var fileExtension: String {
+        switch self {
+        case .silence:
+            return "mp3"
+        default:
+            return "m4a"
         }
     }
 }
 
 // MARK: - Music Model
 enum MusicType: String, CaseIterable, Identifiable, Codable {
-    case spatialOfNature = "sound-music-Spatial of Nature"
     case balancedbeat = "sound-music-balancedbeat"
+    case blissfulbreezes = "sound-music-blissfulbreezes"
+    case calmcascades = "sound-music-calmcascades"
+    case clearconcentration = "sound-music-clearconcentration"
+    case ephemeralease = "sound-music-ephemeralease"
+    case etherealechoes = "sound-music-etherealechoes"
+    case focusflow = "sound-music-focusflow"
+    case gentlegossamer = "sound-music-gentlegossamer"
     case harmonichorizons = "sound-music-harmonichorizons"
+    case lavenderlagoon = "sound-music-lavenderlagoon"
+    case mellowmoonlight = "sound-music-mellowmoonlight"
+    case mysticmist = "sound-music-mysticmist"
+    case peacefulparadise = "sound-music-peacefulparadise"
+    case purposefulpulse = "sound-music-purposefulpulse"
+    case radiantripple = "sound-music-radiantripple"
+    case seraphicsymphony = "sound-music-seraphicsymphony"
+    case serenesolitude = "sound-music-serenesolitude"
+    case solacesway = "sound-music-solacesway"
+    case soothingserenity = "sound-music-soothingserenity"
+    case steadystream = "sound-music-steadystream"
+    case tranquiltwilight = "sound-music-tranquiltwilight"
+    case velvetvista = "sound-music-velvetvista"
+    case whisperingwaves = "sound-music-whisperingwaves"
+    case zenithzone = "sound-music-zenithzone"
     
     var id: String { rawValue }
     
     var displayName: String {
         switch self {
-        case .spatialOfNature: return "自然空间"
         case .balancedbeat: return "平衡节拍"
+        case .blissfulbreezes: return "幸福微风"
+        case .calmcascades: return "平静瀑布"
+        case .clearconcentration: return "清晰专注"
+        case .ephemeralease: return "短暂舒适"
+        case .etherealechoes: return "空灵回响"
+        case .focusflow: return "专注流"
+        case .gentlegossamer: return "轻柔薄纱"
         case .harmonichorizons: return "地平线"
+        case .lavenderlagoon: return "薰衣草湖"
+        case .mellowmoonlight: return "柔和月光"
+        case .mysticmist: return "神秘薄雾"
+        case .peacefulparadise: return "宁静天堂"
+        case .purposefulpulse: return "目标脉动"
+        case .radiantripple: return "光芒涟漪"
+        case .seraphicsymphony: return "天使交响"
+        case .serenesolitude: return "静谧独处"
+        case .solacesway: return "慰藉摇摆"
+        case .soothingserenity: return "舒缓宁静"
+        case .steadystream: return "稳定流"
+        case .tranquiltwilight: return "宁静暮光"
+        case .velvetvista: return "天鹅绒景"
+        case .whisperingwaves: return "耳语波"
+        case .zenithzone: return "天顶区"
         }
     }
     
@@ -76,12 +224,7 @@ enum MusicType: String, CaseIterable, Identifiable, Codable {
     }
     
     var fileExtension: String {
-        switch self {
-        case .spatialOfNature:
-            return "mp3"
-        case .balancedbeat, .harmonichorizons:
-            return "m4a"
-        }
+        "m4a"
     }
 }
 
@@ -113,8 +256,9 @@ class AudioPlayerPair {
     private var activePlayer: Int = 1
     private var fadeTimer: Timer?
     private var fadeInOutTimer: Timer?
-    private let crossfadeDuration: TimeInterval = 3.0
-    private var targetVolume: Float = 0.5
+    private let crossfadeDuration: TimeInterval = 0.3  // 增加到 0.3 秒，使过渡更自然
+    private let fadeSteps = 30  // 增加步数使过渡更平滑
+    private var targetVolume: Float = 0.5  // 默认音量调整为 0.5
     
     var volume: Float {
         get { targetVolume }
@@ -167,7 +311,6 @@ class AudioPlayerPair {
     }
     
     private func performInitialFadeIn(for player: AVAudioPlayer) {
-        let fadeSteps = 60 // 增加步数使过渡更平滑
         let stepDuration = crossfadeDuration / TimeInterval(fadeSteps)
         var step = 0
         
@@ -180,7 +323,11 @@ class AudioPlayerPair {
             
             step += 1
             let progress = Float(step) / Float(fadeSteps)
-            let newVolume = self.targetVolume * progress
+            // 使用 easeInOut 曲线使过渡更平滑
+            let smoothProgress = progress < 0.5 
+                ? 2 * progress * progress 
+                : -1 + (4 - 2 * progress) * progress
+            let newVolume = self.targetVolume * smoothProgress
             player.volume = newVolume
             
             if step >= fadeSteps {
@@ -192,24 +339,11 @@ class AudioPlayerPair {
         }
     }
     
-    func stop() {
-        guard isPlaying else { return }
-        
-        fadeTimer?.invalidate()
-        fadeTimer = nil
-        
-        // 执行淡出效果
-        performFadeOut()
-    }
-    
     private func performFadeOut() {
         isInFadeTransition = true
-        let fadeSteps = 50
-        let stepDuration = crossfadeDuration / 2 / TimeInterval(fadeSteps) // 淡出用一半时间
+        let stepDuration = (crossfadeDuration / 2) / TimeInterval(fadeSteps) // 淡出用一半时间
         var step = 0
-        
-        let currentPlayer = activePlayer == 1 ? player1 : player2
-        let initialVolume = currentPlayer.volume
+        let startVolume = activePlayer == 1 ? player1.volume : player2.volume
         
         fadeInOutTimer?.invalidate()
         fadeInOutTimer = Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { [weak self] timer in
@@ -219,15 +353,25 @@ class AudioPlayerPair {
             }
             
             step += 1
-            let progress = 1 - Float(step) / Float(fadeSteps)
-            currentPlayer.volume = initialVolume * progress
+            let progress = Float(step) / Float(fadeSteps)
+            // 使用 easeOut 曲线使淡出更自然
+            let smoothProgress = 1 - (1 - progress) * (1 - progress)
+            let newVolume = startVolume * (1 - smoothProgress)
+            
+            if self.activePlayer == 1 {
+                self.player1.volume = newVolume
+            } else {
+                self.player2.volume = newVolume
+            }
             
             if step >= fadeSteps {
                 timer.invalidate()
                 self.isInFadeTransition = false
-                currentPlayer.stop()
-                currentPlayer.currentTime = 0
-                self.fadeInOutTimer = nil
+                if self.activePlayer == 1 {
+                    self.player1.stop()
+                } else {
+                    self.player2.stop()
+                }
             }
         }
     }
@@ -255,7 +399,6 @@ class AudioPlayerPair {
     
     private func performCrossfade(fadeOut: AVAudioPlayer, fadeIn: AVAudioPlayer) {
         isInFadeTransition = true
-        let fadeSteps = 60 // 增加步数使过渡更平滑
         let stepDuration = crossfadeDuration / TimeInterval(fadeSteps)
         var step = 0
         
@@ -268,9 +411,12 @@ class AudioPlayerPair {
             
             step += 1
             let progress = Float(step) / Float(fadeSteps)
-            
-            fadeOut.volume = self.targetVolume * (1 - progress)
-            fadeIn.volume = self.targetVolume * progress
+            // 使用 easeInOut 曲线使过渡更平滑
+            let smoothProgress = progress < 0.5 
+                ? 2 * progress * progress 
+                : -1 + (4 - 2 * progress) * progress
+            fadeOut.volume = self.targetVolume * (1 - smoothProgress)
+            fadeIn.volume = self.targetVolume * smoothProgress
             
             if step >= fadeSteps {
                 timer.invalidate()
@@ -283,6 +429,16 @@ class AudioPlayerPair {
             }
         }
     }
+    
+    func stop() {
+        guard isPlaying else { return }
+        
+        fadeTimer?.invalidate()
+        fadeTimer = nil
+        
+        // 执行淡出效果
+        performFadeOut()
+    }
 }
 
 // MARK: - Audio File Management
@@ -290,20 +446,20 @@ extension AudioManager {
     // 获取环境音频文件的 URL
     private func getAudioFileURL(_ type: AudioType) -> URL? {
         // 直接从 Resources 目录加载
-        if let url = Bundle.main.url(forResource: type.rawValue, withExtension: "mp3") {
+        if let url = Bundle.main.url(forResource: type.rawValue, withExtension: type.fileExtension) {
             return url
         }
-        print("Error: Could not find audio file: \(type.rawValue).mp3")
+        print("Error: Could not find audio file: \(type.rawValue).\(type.fileExtension)")
         return nil
     }
     
     // 获取音乐文件的 URL
     private func getMusicFileURL(_ music: MusicType) -> URL? {
         // 直接从 Resources 目录加载
-        if let url = Bundle.main.url(forResource: music.rawValue, withExtension: music.fileExtension) {
+        if let url = Bundle.main.url(forResource: music.rawValue, withExtension: "m4a") {
             return url
         }
-        print("Error: Could not find music file: \(music.rawValue).\(music.fileExtension)")
+        print("Error: Could not find music file: \(music.rawValue).m4a")
         return nil
     }
     
@@ -323,7 +479,7 @@ extension AudioManager {
     // 播放音乐
     func playMusic(_ music: MusicType) {
         guard let url = getMusicFileURL(music) else {
-            print("Error: Could not find music file: \(music.rawValue).\(music.fileExtension)")
+            print("Error: Could not find music file: \(music.rawValue).m4a")
             return
         }
         
@@ -337,24 +493,23 @@ extension AudioManager {
             player.numberOfLoops = -1 // 循环播放
             player.volume = musicVolume
             player.play()
-            isMusicPlaying = true
+            isPlaying = true
         }
     }
     
-    func stopMusic(_ music: MusicType? = nil) {
-        if let music = music {
-            if selectedMusic == music {
-                musicPlayer?.stop()
-                musicPlayer = nil
-                selectedMusic = nil
-                isMusicPlaying = false
-            }
-        } else {
-            musicPlayer?.stop()
+    func stopMusic() {
+        if let player = musicPlayer {
+            player.stop()
             musicPlayer = nil
-            selectedMusic = nil
             isMusicPlaying = false
         }
+    }
+    
+    func stopAll() {
+        selectedTypes.forEach { stopAudio($0) }
+        stopMusic()
+        isPlaying = false
+        stopTimer()
     }
 }
 
@@ -368,7 +523,12 @@ class AudioManager: ObservableObject {
             musicPlayer?.volume = musicVolume
         }
     }
-    @Published var isPlaying: Bool = false
+    @Published var isPlaying: Bool = false {
+        didSet {
+            // 同步音乐播放状态
+            isMusicPlaying = isPlaying && selectedMusic != nil
+        }
+    }
     @Published var isMusicPlaying: Bool = false
     @Published var selectedTimeLimit: TimeLimit = .unlimited
     @Published var remainingTime: TimeInterval = 0
@@ -396,11 +556,49 @@ class AudioManager: ObservableObject {
         if selectedTypes.contains(type) {
             selectedTypes.remove(type)
             stopAudio(type)
-            isPlaying = !selectedTypes.isEmpty
         } else {
             selectedTypes.insert(type)
-            playAudio(type)
-            isPlaying = true
+            if isPlaying {
+                playAudio(type)
+            }
+        }
+        // 更新播放状态
+        if selectedTypes.isEmpty && selectedMusic == nil {
+            isPlaying = false
+        }
+    }
+    
+    func toggleMusic(_ music: MusicType) {
+        if selectedMusic == music {
+            selectedMusic = nil
+            stopMusic()
+        } else {
+            if let _ = selectedMusic {
+                stopMusic()
+            }
+            selectedMusic = music
+            if isPlaying {
+                playMusic(music)
+            }
+        }
+        // 更新播放状态
+        if selectedTypes.isEmpty && selectedMusic == nil {
+            isPlaying = false
+        }
+    }
+    
+    func togglePlayback() {
+        isPlaying.toggle()
+        if isPlaying {
+            // 播放所有选中的音频
+            selectedTypes.forEach { playAudio($0) }
+            // 播放选中的音乐
+            if let music = selectedMusic {
+                playMusic(music)
+            }
+            startTimer()
+        } else {
+            stopAll()
         }
     }
     
@@ -408,19 +606,6 @@ class AudioManager: ObservableObject {
         volumes[type] = volume
         if let playerPair = playerPairs[type], selectedTypes.contains(type) {
             playerPair.volume = volume
-        }
-    }
-    
-    func togglePlayback() {
-        isPlaying.toggle()
-        if isPlaying {
-            selectedTypes.forEach { playAudio($0) }
-            if let music = selectedMusic {
-                playMusic(music)
-            }
-            startTimer()
-        } else {
-            stopAll()
         }
     }
     
@@ -456,13 +641,6 @@ class AudioManager: ObservableObject {
         countdownTimer?.invalidate()
         countdownTimer = nil
         remainingTime = 0
-    }
-    
-    func stopAll() {
-        isPlaying = false
-        selectedTypes.forEach { stopAudio($0) }
-        stopMusic()
-        stopTimer()
     }
     
     // 简化的随机选择方法
@@ -588,36 +766,39 @@ struct AudioListView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-        VStack(spacing: 0) {
-            ForEach(AudioType.allCases) { type in
-                Button(action: {
-                    audioManager.toggleSound(type)
-                }) {
-                    HStack(spacing: 8) {
-                        // 状态图标
-                        Image(systemName: audioManager.selectedTypes.contains(type) ? "checkmark.circle" : type.iconName)
-                            .font(.system(size: 12))
-                            .foregroundColor(iconColor)
-                            .frame(width: 16)
-                        
-                        // 声音名称
-                        Text(type.displayName)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+        ScrollView {
+            VStack(spacing: 0) {
+                ForEach(AudioType.allCases) { type in
+                    Button(action: {
+                        audioManager.toggleSound(type)
+                    }) {
+                        HStack(spacing: 8) {
+                            // 状态图标
+                            Image(systemName: audioManager.selectedTypes.contains(type) ? "checkmark.circle" : type.iconName)
+                                .font(.system(size: 12))
+                                .foregroundColor(iconColor)
+                                .frame(width: 16)
+                            
+                            // 声音名称
+                            Text(type.displayName)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .contentShape(Rectangle())
                     }
-                    .contentShape(Rectangle())
+                    .buttonStyle(.plain)
+                    .padding(.vertical, 5)
+                    .padding(.horizontal)
+                    .background(
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.primary.opacity(0.1))
+                            .opacity(audioManager.selectedTypes.contains(type) ? 1 : 0)
+                    )
                 }
-                .buttonStyle(.plain)
-                .padding(.vertical, 5)
-                .padding(.horizontal)
-                .background(
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(Color.primary.opacity(0.1))
-                        .opacity(audioManager.selectedTypes.contains(type) ? 1 : 0)
-                )
             }
+            .padding(.vertical, 4)
         }
-        .padding(.vertical, 4)
         .frame(width: 200)
+        .frame(maxHeight: 400)
     }
     
     private var iconColor: Color {
@@ -748,42 +929,39 @@ struct MusicListView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-        VStack(spacing: 0) {
-            ForEach(MusicType.allCases) { music in
-                Button(action: {
-                    if audioManager.selectedMusic == music {
-                        audioManager.selectedMusic = nil
-                        audioManager.stopMusic()
-                    } else {
-                        audioManager.selectedMusic = music
-                        audioManager.playMusic(music)
+        ScrollView {
+            VStack(spacing: 0) {
+                ForEach(MusicType.allCases) { music in
+                    Button(action: {
+                        audioManager.toggleMusic(music)
+                    }) {
+                        HStack(spacing: 8) {
+                            // 状态图标
+                            Image(systemName: audioManager.selectedMusic == music ? "checkmark.circle" : music.iconName)
+                                .font(.system(size: 12))
+                                .foregroundColor(iconColor)
+                                .frame(width: 16)
+                            
+                            // 音乐名称
+                            Text(music.displayName)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .contentShape(Rectangle())
                     }
-                }) {
-                    HStack(spacing: 8) {
-                        // 状态图标
-                        Image(systemName: audioManager.selectedMusic == music ? "checkmark.circle" : music.iconName)
-                            .font(.system(size: 12))
-                            .foregroundColor(iconColor)
-                            .frame(width: 16)
-                        
-                        // 音乐名称
-                        Text(music.displayName)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .contentShape(Rectangle())
+                    .buttonStyle(.plain)
+                    .padding(.vertical, 5)
+                    .padding(.horizontal)
+                    .background(
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.primary.opacity(0.1))
+                            .opacity(audioManager.selectedMusic == music ? 1 : 0)
+                    )
                 }
-                .buttonStyle(.plain)
-                .padding(.vertical, 5)
-                .padding(.horizontal)
-                .background(
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(Color.primary.opacity(0.1))
-                        .opacity(audioManager.selectedMusic == music ? 1 : 0)
-                )
             }
         }
         .padding(.vertical, 4)
         .frame(width: 200)
+        .frame(maxHeight: 400)
     }
     
     private var iconColor: Color {
