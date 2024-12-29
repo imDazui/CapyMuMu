@@ -1,0 +1,35 @@
+{
+  "identifier" : "7974453EA",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "18",
+      "familyShareable" : false,
+      "internalID" : "6474453EA",
+      "localizations" : [
+        {
+          "description" : "解锁所有高级功能",
+          "displayName" : "Pro",
+          "locale" : "zh_CN"
+        }
+      ],
+      "productID" : "com.capymumu.pro",
+      "referenceName" : "Pro",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6474453EA",
+    "_developerTeamID" : "TEAM_ID",
+    "_lastSynchronizedDate" : 719151252.89443004
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
