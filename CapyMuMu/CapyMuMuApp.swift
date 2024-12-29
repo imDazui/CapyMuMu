@@ -333,8 +333,10 @@ class AudioManager: ObservableObject {
             stopAudio(type)
         } else {
             selectedTypes.insert(type)
-            if isPlaying {
-                playAudio(type)
+            playAudio(type)
+            if !isPlaying {
+                isPlaying = true
+                startTimer()
             }
         }
         // 更新播放状态
@@ -352,8 +354,10 @@ class AudioManager: ObservableObject {
                 stopMusic()
             }
             selectedMusic = music
-            if isPlaying {
-                playMusic(music)
+            playMusic(music)
+            if !isPlaying {
+                isPlaying = true
+                startTimer()
             }
         }
         // 更新播放状态

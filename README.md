@@ -27,6 +27,47 @@ CapyMuMu 提供均匀分布的白噪音，屏蔽外界干扰，提升专注力�
 - 冥想爱好者与在意身心健康的人
 - 喜欢自然氛围与白噪音的听众
 
+## 项目结构
+
+```
+CapyMuMu/
+├── Models/                    # 数据模型
+│   ├── AudioType.swift       # 音频类型定义
+│   ├── MusicType.swift       # 音乐类型定义
+│   └── StoreManager.swift    # 应用内购买管理
+├── Views/                    # 视图组件
+│   ├── ActivView.swift       # 激活视图
+│   ├── ListView.swift        # 列表视图
+│   ├── PurchaseView.swift    # 购买视图
+│   └── SaveMenuView.swift    # 保存菜单视图
+├── Resources/                # 资源文件
+│   ├── sound-audio-*.m4a    # 环境音效文件
+│   └── sound-music-*.m4a    # 音乐文件
+├── CapyMuMuApp.swift        # 应用主入口
+└── ContentView.swift         # 主视图
+
+Tests/                       # 测试文件
+├── CapyMuMuTests/          # 单元测试
+└── CapyMuMuUITests/        # UI测试
+```
+
+## 技术架构
+
+CapyMuMu 采用了现代 SwiftUI 架构设计：
+
+- **UI 框架**：使用 SwiftUI 构建原生 macOS 界面
+- **应用扩展**：通过 MenuBarExtra 实现菜单栏功能
+- **状态管理**：采用 SwiftUI 的原生状态管理
+- **音频处理**：使用 AVFoundation 处理音频播放
+- **持久化**：使用 UserDefaults 存储用户设置
+- **内购系统**：集成 StoreKit 2 实现应用内购买
+
+## 开发环境要求
+
+- macOS 13.0 或更高版本
+- Xcode 14.0 或更高版本
+- Swift 5.7 或更高版本
+
 ## 化繁为简，回归声音本质
 
 - 无干扰设计：静默运行于菜单栏，不占用屏幕空间。
