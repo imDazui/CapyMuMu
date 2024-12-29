@@ -759,16 +759,17 @@ struct SoundMenuView: View {
 struct MenuContentView: View {
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var audioManager: AudioManager
+    @EnvironmentObject private var storeManager: StoreManager
+    @EnvironmentObject private var configManager: SavedConfigurationManager
     @Environment(\.colorScheme) private var colorScheme
     @State private var showingTimeOptions = false
     @State private var showAudioList = false
     @State private var showMusicList = false
     @State private var showSaveMenu = false
-    @State private var isHovering = false
-    @State private var isTimerHovering = false
-    @State private var isRandomSelectHovering = false
+    @State private var isPlayHovering = false
     @State private var isSaveHovering = false
-
+    @State private var hoveredConfigId: UUID?
+    
     private var iconColor: Color {
         colorScheme == .dark ? .white : .black
     }
@@ -803,13 +804,13 @@ struct MenuContentView: View {
                         .foregroundColor(iconColor)
                         .background(
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(Color.primary.opacity(isHovering ? 0.1 : 0))
+                                .fill(Color.primary.opacity(isPlayHovering ? 0.1 : 0))
                         )
                 }
                 .buttonStyle(.plain)
                 .onHover { hovering in
                     withAnimation(.easeInOut(duration: 0.2)) {
-                        isHovering = hovering
+                        isPlayHovering = hovering
                     }
                 }
                 
@@ -829,13 +830,13 @@ struct MenuContentView: View {
                         .foregroundColor(iconColor)
                         .background(
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(Color.primary.opacity(isTimerHovering ? 0.1 : 0))
+                                .fill(Color.primary.opacity(isPlayHovering ? 0.1 : 0))
                         )
                 }
                 .buttonStyle(.plain)
                 .onHover { hovering in
                     withAnimation(.easeInOut(duration: 0.2)) {
-                        isTimerHovering = hovering
+                        isPlayHovering = hovering
                     }
                 }
                 
@@ -888,13 +889,13 @@ struct MenuContentView: View {
                         .foregroundColor(iconColor)
                         .background(
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(Color.primary.opacity(isRandomSelectHovering ? 0.1 : 0))
+                                .fill(Color.primary.opacity(isPlayHovering ? 0.1 : 0))
                         )
                 }
                 .buttonStyle(.plain)
                 .onHover { hovering in
                     withAnimation(.easeInOut(duration: 0.2)) {
-                        isRandomSelectHovering = hovering
+                        isPlayHovering = hovering
                     }
                 }
                 Spacer()
@@ -924,6 +925,7 @@ struct MenuContentView: View {
                 }
                 .popover(isPresented: $showSaveMenu, arrowEdge: .bottom) {
                     SaveMenuView(isPresented: $showSaveMenu)
+                        .environmentObject(storeManager)
                 }
                 
             }
@@ -1026,6 +1028,8 @@ class AppState: ObservableObject {
 struct CapyMuMuApp: App {
     @StateObject private var appState = AppState()
     @StateObject private var audioManager = AudioManager()
+    @StateObject private var storeManager = StoreManager()
+    @StateObject private var configManager = SavedConfigurationManager()
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     init() {
@@ -1038,6 +1042,8 @@ struct CapyMuMuApp: App {
             MenuContentView()
                 .environmentObject(appState)
                 .environmentObject(audioManager)
+                .environmentObject(storeManager)
+                .environmentObject(configManager)
         } label: {
             Image(systemName: audioManager.isPlaying ? "waveform.circle.fill" : "waveform")
                 .symbolRenderingMode(.hierarchical)

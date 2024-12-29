@@ -1,23 +1,24 @@
 import Foundation
 import StoreKit
 
+// MARK: - Store Manager
 @MainActor
 class StoreManager: ObservableObject {
+    static let shared = StoreManager()
+    
     // MARK: - Published Properties
     @Published private(set) var products: [Product] = []
-    @Published private(set) var purchasedProductIDs = Set<String>()
     @Published private(set) var isPro: Bool = false
     @Published private(set) var isLoading = false
-    @Published private(set) var loadError: Error?
+    @Published private(set) var error: String?
     
     // MARK: - Constants
-    private let proProductID = "com.capymumu.pro"
-    private var updates: Task<Void, Never>? = nil
+    private static let productID = "com.capymumu.pro"
+    private var updateListenerTask: Task<Void, Error>?
     
     // MARK: - Initialization
     init() {
-        print("StoreManager: Initializing...")
-        updates = observeTransactionUpdates()
+        updateListenerTask = listenForTransactions()
         Task {
             await loadProducts()
             await updatePurchasedProducts()
@@ -25,155 +26,139 @@ class StoreManager: ObservableObject {
     }
     
     deinit {
-        updates?.cancel()
+        updateListenerTask?.cancel()
+    }
+    
+    // MARK: - Public Properties
+    var productName: String {
+        if let product = products.first {
+            return product.displayName
+        }
+        return "[加载商品名称中...]"
+    }
+    
+    var productDescription: String {
+        if let product = products.first {
+            return product.description
+        }
+        return "[加载商品描述中...]"
+    }
+    
+    var price: String {
+        if let product = products.first {
+            // 使用系统的价格格式化器
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            formatter.locale = product.priceFormatStyle.locale
+            
+            if let formattedPrice = formatter.string(from: NSDecimalNumber(decimal: product.price)) {
+                return formattedPrice
+            }
+            return product.displayPrice
+        }
+        return "[加载价格中...]"
     }
     
     // MARK: - Public Methods
-    /// 清除所有购买记录（仅用于测试）
-    #if DEBUG
-    func clearPurchases() async {
-        print("StoreManager: Clearing purchases...")
-        for await verification in Transaction.currentEntitlements {
-            do {
-                let transaction = try checkVerified(verification)
-                await transaction.finish()
-                print("StoreManager: Cleared transaction: \(transaction.id)")
-            } catch {
-                print("StoreManager: Failed to clear transaction: \(error)")
-            }
-        }
-        purchasedProductIDs.removeAll()
-        isPro = false
-        print("StoreManager: All purchases cleared")
-    }
-    #endif
-    
-    /// 检查是否为 Pro 版本
-    func checkProStatus() -> Bool {
-        return isPro
-    }
-    
     /// 加载商品信息
     func loadProducts() async {
-        print("StoreManager: Starting to load products...")
         isLoading = true
-        loadError = nil
+        error = nil
         
         do {
-            let productIds = [proProductID]
-            print("StoreManager: Requesting products for IDs: \(productIds)")
-            
-            #if DEBUG
-            // 检查是否在使用 StoreKit 配置文件
-            if let path = Bundle.main.path(forResource: "Configuration", ofType: "storekit") {
-                print("StoreManager: Found StoreKit configuration at: \(path)")
-            } else {
-                print("StoreManager: ⚠️ No StoreKit configuration file found")
-            }
-            #endif
-            
-            products = try await Product.products(for: [proProductID])
-            print("StoreManager: Successfully loaded \(products.count) products:")
-            for product in products {
+            let storeProducts = try await Product.products(for: [Self.productID])
+            products = storeProducts
+            print("StoreManager: Successfully loaded \(storeProducts.count) products:")
+            for product in storeProducts {
                 print("- Product: \(product.id)")
                 print("  - Name: \(product.displayName)")
                 print("  - Description: \(product.description)")
                 print("  - Price: \(product.displayPrice)")
             }
-            
-            if products.isEmpty {
-                print("StoreManager: ⚠️ No products were loaded")
-            }
         } catch {
-            print("StoreManager: ❌ Failed to load products: \(error)")
-            print("StoreManager: Error details: \(String(describing: error))")
-            loadError = error
+            print("StoreManager: Failed to load products:", error)
+            self.error = "无法加载商品信息"
         }
         
         isLoading = false
     }
     
     /// 购买商品
-    func purchase(_ product: Product) async throws {
-        print("StoreManager: Starting purchase for \(product.id)...")
-        let result = try await product.purchase()
-        
-        switch result {
-        case .success(let verification):
-            print("StoreManager: Purchase succeeded, verifying transaction...")
-            // 检查交易凭证
-            let transaction = try checkVerified(verification)
-            
-            // 更新购买状态
-            await updatePurchaseState(transaction)
-            print("StoreManager: Purchase state updated, isPro: \(isPro)")
-            
-            // 完成交易
-            await transaction.finish()
-            print("StoreManager: Transaction finished successfully")
-            
-        case .userCancelled:
-            print("StoreManager: User cancelled the purchase")
-            
-        case .pending:
-            print("StoreManager: Purchase is pending")
-            
-        @unknown default:
-            print("StoreManager: Unknown purchase result")
-            break
+    func purchase() async {
+        guard let product = products.first else {
+            error = "商品信息未加载"
+            return
         }
+        
+        isLoading = true
+        error = nil
+        
+        do {
+            let result = try await product.purchase()
+            
+            switch result {
+            case .success(_):
+                print("StoreManager: Purchase succeeded")
+                await updatePurchasedProducts()
+                
+            case .userCancelled:
+                print("StoreManager: Purchase cancelled by user")
+                
+            case .pending:
+                print("StoreManager: Purchase pending")
+                error = "购买正在处理中"
+                
+            default:
+                print("StoreManager: Purchase failed")
+                error = "购买失败"
+            }
+        } catch {
+            print("StoreManager: Purchase error:", error)
+            self.error = "购买时出现错误"
+        }
+        
+        isLoading = false
     }
     
     /// 更新已购买商品
     func updatePurchasedProducts() async {
-        print("StoreManager: Updating purchased products...")
         for await result in Transaction.currentEntitlements {
-            do {
-                let transaction = try checkVerified(result)
-                await updatePurchaseState(transaction)
-            } catch {
-                print("StoreManager: Failed to verify transaction: \(error)")
+            if case .verified(let transaction) = result {
+                if transaction.productID == Self.productID {
+                    isPro = true
+                    return
+                }
             }
         }
-        print("StoreManager: Finished updating purchased products. isPro: \(isPro)")
+        isPro = false
+    }
+    
+    /// 恢复购买
+    func restorePurchases() async {
+        isLoading = true
+        error = nil
+        
+        do {
+            try await AppStore.sync()
+            await updatePurchasedProducts()
+        } catch {
+            print("StoreManager: Restore purchases error:", error)
+            self.error = "恢复购买失败"
+        }
+        
+        isLoading = false
     }
     
     // MARK: - Private Methods
-    private func updatePurchaseState(_ transaction: Transaction) async {
-        if transaction.productID == proProductID {
-            purchasedProductIDs.insert(transaction.productID)
-            isPro = true
-            print("StoreManager: Pro status updated: \(isPro)")
-        }
-    }
-    
-    private func observeTransactionUpdates() -> Task<Void, Never> {
-        Task(priority: .background) {
+    private func listenForTransactions() -> Task<Void, Error> {
+        return Task.detached {
             print("StoreManager: Starting transaction observation...")
-            for await verification in Transaction.updates {
-                do {
-                    let transaction = try checkVerified(verification)
-                    await updatePurchaseState(transaction)
+            for await result in Transaction.updates {
+                if case .verified(let transaction) = result {
+                    await self.updatePurchasedProducts()
                     await transaction.finish()
-                } catch {
-                    print("StoreManager: Failed to verify transaction: \(error)")
                 }
             }
         }
     }
-    
-    private func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
-        switch result {
-        case .unverified:
-            print("StoreManager: ❌ Transaction verification failed")
-            throw StoreError.failedVerification
-        case .verified(let safe):
-            print("StoreManager: ✅ Transaction verified")
-            return safe
-        }
-    }
-}
-
-enum StoreError: Error {
-    case failedVerification
 }

@@ -1,118 +1,157 @@
 import SwiftUI
 import StoreKit
 
+// MARK: - Purchase Window Manager
+class PurchaseWindowManager: ObservableObject {
+    static let shared = PurchaseWindowManager()
+    private var purchaseWindow: NSWindow?
+    
+    // 保存环境对象的引用
+    private var storeManager: StoreManager?
+    private var configManager: SavedConfigurationManager?
+    
+    private init() {}
+    
+    func showPurchaseWindow(storeManager: StoreManager, configManager: SavedConfigurationManager) {
+        // 保存环境对象
+        self.storeManager = storeManager
+        self.configManager = configManager
+        
+        // 如果窗口已经存在，就显示它
+        if let window = purchaseWindow {
+            window.orderFrontRegardless()
+            NSApp.activate(ignoringOtherApps: true)
+            return
+        }
+        
+        // 创建新窗口
+        let window = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 300, height: 350),
+            styleMask: [.titled, .closable],
+            backing: .buffered,
+            defer: false
+        )
+        window.title = "CapyMuMu"
+        window.center()
+        
+        // 设置窗口层级和行为
+        window.level = .floating
+        window.isReleasedWhenClosed = false
+        
+        // 设置窗口内容
+        let purchaseView = PurchaseView()
+            .environmentObject(storeManager)
+            .environmentObject(configManager)
+        
+        window.contentView = NSHostingView(rootView: purchaseView)
+        
+        // 保存窗口引用
+        purchaseWindow = window
+        
+        // 设置窗口关闭时的回调
+        NotificationCenter.default.addObserver(
+            forName: NSWindow.willCloseNotification,
+            object: window,
+            queue: .main
+        ) { [weak self] _ in
+            self?.purchaseWindow = nil
+            self?.storeManager = nil
+            self?.configManager = nil
+        }
+        
+        // 显示窗口并激活应用
+        window.orderFrontRegardless()
+        NSApp.activate(ignoringOtherApps: true)
+    }
+}
+
+// MARK: - Purchase View
 struct PurchaseView: View {
-    @StateObject private var storeManager = StoreManager()
-    @Environment(\.dismiss) private var dismiss
-    @State private var isLoading = false
-    @State private var errorMessage: String?
-    @State private var showError = false
+    @EnvironmentObject private var storeManager: StoreManager
+    @EnvironmentObject private var configManager: SavedConfigurationManager
+    
+    private var productName: String { storeManager.productName }
+    private var productDescription: String { storeManager.productDescription }
+    private var price: String { storeManager.price }
     
     var body: some View {
         VStack(spacing: 20) {
-            // 标题
-            Text("升级到 Pro")
-                .font(.title)
-                .fontWeight(.bold)
+
+            Spacer()
             
-            // 功能列表
-            VStack(alignment: .leading, spacing: 12) {
-                FeatureRow(icon: "infinity", text: "无限制使用所有环境音效")
+            Text(productName)
+                .font(.title2)
+                .bold()
+            
+            Text(productDescription)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+            
+            VStack(alignment: .leading, spacing: 10) {
+                FeatureRow(icon: "waveform", text: "解锁所有环境音")
                 FeatureRow(icon: "music.note", text: "解锁所有音乐")
-                FeatureRow(icon: "square.stack", text: "保存无限组合")
-                FeatureRow(icon: "timer", text: "定时功能")
-                FeatureRow(icon: "heart", text: "支持开发者")
+                FeatureRow(icon: "bookmark", text: "解锁保存功能")
             }
             .padding(.vertical)
             
-            // 加载状态
             if storeManager.isLoading {
-                ProgressView("正在加载商品信息...")
-            } else if let error = storeManager.loadError {
-                VStack {
-                    Image(systemName: "exclamationmark.triangle")
-                        .font(.title)
-                        .foregroundColor(.red)
-                    Text("加载失败")
-                        .font(.headline)
-                    Text(error.localizedDescription)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Button("重试") {
-                        Task {
-                            await storeManager.loadProducts()
-                        }
+                ProgressView()
+                    .controlSize(.large)
+            } else if storeManager.isPro {
+                Button(action: {}) {
+                    HStack {
+                        Image(systemName: "checkmark.circle.fill")
+                        Text("已购买")
                     }
-                    .buttonStyle(.bordered)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.green)
+                    .cornerRadius(8)
                 }
+                .buttonStyle(.plain)
+                .disabled(true)
             } else {
-                // 商品列表
-                ForEach(storeManager.products) { product in
-                    Button(action: {
-                        Task {
-                            await purchase(product)
-                        }
-                    }) {
-                        VStack {
-                            Text("解锁 \(product.displayName)")
-                                .font(.headline)
-                            Text(product.description)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            Text(product.displayPrice)
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .padding(.top, 4)
-                        }
+                Button(action: {
+                    Task {
+                        await storeManager.purchase()
+                    }
+                }) {
+                    Text(price)
+                        .font(.headline)
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.accentColor)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .cornerRadius(8)
+                }
+                .buttonStyle(.plain)
+                .disabled(storeManager.isLoading)
+                
+                Button(action: {
+                    Task {
+                        await storeManager.restorePurchases()
                     }
-                    .disabled(isLoading)
+                }) {
+                    Text("恢复购买")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
                 }
+                .buttonStyle(.plain)
+                .disabled(storeManager.isLoading)
             }
             
-            Spacer()
-            
-            // 恢复购买按钮
-            Button("恢复购买") {
-                Task {
-                    await storeManager.updatePurchasedProducts()
-                }
+            if let error = storeManager.error {
+                Text(error)
+                    .foregroundColor(.red)
+                    .font(.caption)
+                    .multilineTextAlignment(.center)
             }
-            .disabled(isLoading)
-            
-            // 调试按钮
-            #if DEBUG
-            Button("清除购买记录") {
-                Task {
-                    await storeManager.clearPurchases()
-                }
-            }
-            .disabled(isLoading)
-            #endif
         }
-        .padding()
-        .alert("购买失败", isPresented: $showError, presenting: errorMessage) { _ in
-            Button("确定", role: .cancel) {}
-        } message: { error in
-            Text(error)
-        }
-    }
-    
-    private func purchase(_ product: Product) async {
-        isLoading = true
-        defer { isLoading = false }
-        
-        do {
-            try await storeManager.purchase(product)
-            dismiss()
-        } catch {
-            errorMessage = error.localizedDescription
-            showError = true
-        }
+        .padding(25)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -121,17 +160,17 @@ struct FeatureRow: View {
     let text: String
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             Image(systemName: icon)
-                .font(.title3)
                 .foregroundColor(.accentColor)
                 .frame(width: 24)
             Text(text)
-                .font(.body)
         }
     }
 }
 
 #Preview {
     PurchaseView()
+        .environmentObject(StoreManager())
+        .environmentObject(SavedConfigurationManager())
 }
