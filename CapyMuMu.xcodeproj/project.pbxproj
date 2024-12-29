@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AA2C52DC2D22075300A6D317 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA2C52DB2D22075300A6D317 /* StoreKit.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		AAA757B72D1902680092A484 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA2C52DB2D22075300A6D317 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		AA2C52DD2D2207DF00A6D317 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		AAA757A52D1902660092A484 /* CapyMuMu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CapyMuMu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA757B62D1902680092A484 /* CapyMuMuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapyMuMuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA757C02D1902680092A484 /* CapyMuMuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapyMuMuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA2C52DC2D22075300A6D317 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,14 +241,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA2C52DA2D22075300A6D317 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA2C52DB2D22075300A6D317 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AAA7579C2D1902660092A484 = {
 			isa = PBXGroup;
 			children = (
+				AA2C52DD2D2207DF00A6D317 /* Configuration.storekit */,
 				AAA757A72D1902660092A484 /* CapyMuMu */,
 				AAA757B92D1902680092A484 /* CapyMuMuTests */,
 				AAA757C32D1902680092A484 /* CapyMuMuUITests */,
 				AAA757A62D1902660092A484 /* Products */,
 				AAA757D32D1902890092A484 /* Info.plist */,
+				AA2C52DA2D22075300A6D317 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -585,7 +602,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MurmurApp;
 				PRODUCT_NAME = CapyMuMu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -623,7 +640,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MurmurApp;
 				PRODUCT_NAME = CapyMuMu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
