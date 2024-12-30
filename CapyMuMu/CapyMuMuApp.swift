@@ -767,6 +767,8 @@ struct MenuContentView: View {
     @State private var showMusicList = false
     @State private var showSaveMenu = false
     @State private var isPlayHovering = false
+    @State private var isTimeHovering = false
+    @State private var isRandomHovering = false
     @State private var isSaveHovering = false
     @State private var hoveredConfigId: UUID?
     
@@ -830,13 +832,13 @@ struct MenuContentView: View {
                         .foregroundColor(iconColor)
                         .background(
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(Color.primary.opacity(isPlayHovering ? 0.1 : 0))
+                                .fill(Color.primary.opacity(isTimeHovering ? 0.1 : 0))
                         )
                 }
                 .buttonStyle(.plain)
                 .onHover { hovering in
                     withAnimation(.easeInOut(duration: 0.2)) {
-                        isPlayHovering = hovering
+                        isTimeHovering = hovering
                     }
                 }
                 
@@ -889,13 +891,13 @@ struct MenuContentView: View {
                         .foregroundColor(iconColor)
                         .background(
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(Color.primary.opacity(isPlayHovering ? 0.1 : 0))
+                                .fill(Color.primary.opacity(isRandomHovering ? 0.1 : 0))
                         )
                 }
                 .buttonStyle(.plain)
                 .onHover { hovering in
                     withAnimation(.easeInOut(duration: 0.2)) {
-                        isPlayHovering = hovering
+                        isRandomHovering = hovering
                     }
                 }
                 Spacer()

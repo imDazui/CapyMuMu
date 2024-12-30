@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 // MARK: - Save Menu ViewSavedConfigurationManager
 struct SaveMenuView: View {
     @Binding var isPresented: Bool
@@ -12,24 +11,7 @@ struct SaveMenuView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Button(action: {
-                if storeManager.isPro {
-                    withAnimation(.easeOut(duration: 0.2)) {
-                        let audioTypes = Array(audioManager.selectedTypes)
-                        let music = audioManager.selectedMusic
-                        configManager.saveConfiguration(
-                            audioTypes: audioTypes,
-                            music: music,
-                            timeLimit: audioManager.selectedTimeLimit
-                        )
-                    }
-                } else {
-                    PurchaseWindowManager.shared.showPurchaseWindow(
-                        storeManager: storeManager,
-                        configManager: configManager
-                    )
-                }
-            }) {
+            Button(action: handleSave) {
                 Label("保存", systemImage: storeManager.isPro ? "plus" : "lock.fill")
                     .foregroundColor(.primary)
             }
@@ -48,6 +30,25 @@ struct SaveMenuView: View {
         }
         .padding(8)
         .frame(minWidth: 200)
-        .drawingGroup()
+    }
+    
+    private func handleSave() {
+        if storeManager.isPro {
+            // 使用 DispatchQueue.main.async 来避免布局递归
+            DispatchQueue.main.async {
+                let audioTypes = Array(audioManager.selectedTypes)
+                let music = audioManager.selectedMusic
+                configManager.saveConfiguration(
+                    audioTypes: audioTypes,
+                    music: music,
+                    timeLimit: audioManager.selectedTimeLimit
+                )
+            }
+        } else {
+            PurchaseWindowManager.shared.showPurchaseWindow(
+                storeManager: storeManager,
+                configManager: configManager
+            )
+        }
     }
 }

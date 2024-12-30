@@ -65,6 +65,20 @@ class PurchaseWindowManager: ObservableObject {
     }
 }
 
+// MARK: - Feature Row
+struct FeatureRow: View {
+    let icon: String
+    let text: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .frame(width: 24)
+            Text(text)
+        }
+    }
+}
+
 // MARK: - Purchase View
 struct PurchaseView: View {
     @EnvironmentObject private var storeManager: StoreManager
@@ -73,10 +87,10 @@ struct PurchaseView: View {
     private var productName: String { storeManager.productName }
     private var productDescription: String { storeManager.productDescription }
     private var price: String { storeManager.price }
+    private var priceDescription: String { storeManager.priceDescription }
     
     var body: some View {
         VStack(spacing: 20) {
-
             Spacer()
             
             Text(productName)
@@ -84,6 +98,7 @@ struct PurchaseView: View {
                 .bold()
             
             Text(productDescription)
+                .padding(.horizontal)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -114,21 +129,29 @@ struct PurchaseView: View {
                 .buttonStyle(.plain)
                 .disabled(true)
             } else {
-                Button(action: {
-                    Task {
-                        await storeManager.purchase()
+                VStack(spacing: 4) {
+                    Button(action: {
+                        Task {
+                            await storeManager.purchase()
+                        }
+                    }) {
+                        Text(price)
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.accentColor)
+                            .cornerRadius(8)
                     }
-                }) {
-                    Text(price)
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.accentColor)
-                        .cornerRadius(8)
+                    .buttonStyle(.plain)
+                    .disabled(storeManager.isLoading)
+                    
+                    if !priceDescription.isEmpty {
+                        Text(priceDescription)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                 }
-                .buttonStyle(.plain)
-                .disabled(storeManager.isLoading)
                 
                 Button(action: {
                     Task {
@@ -152,20 +175,6 @@ struct PurchaseView: View {
         }
         .padding(25)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-struct FeatureRow: View {
-    let icon: String
-    let text: String
-    
-    var body: some View {
-        HStack(spacing: 10) {
-            Image(systemName: icon)
-                .foregroundColor(.accentColor)
-                .frame(width: 24)
-            Text(text)
-        }
     }
 }
 

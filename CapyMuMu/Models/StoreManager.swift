@@ -46,17 +46,35 @@ class StoreManager: ObservableObject {
     
     var price: String {
         if let product = products.first {
-            // 使用系统的价格格式化器
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .currency
-            formatter.locale = product.priceFormatStyle.locale
-            
-            if let formattedPrice = formatter.string(from: NSDecimalNumber(decimal: product.price)) {
-                return formattedPrice
-            }
             return product.displayPrice
         }
         return "[加载价格中...]"
+    }
+    
+    var priceDescription: String {
+        if let product = products.first {
+            if let subscription = product.subscription {
+                // 检查是否有促销优惠
+                if let introductoryOffer = subscription.introductoryOffer {
+                    switch introductoryOffer.type {
+                    case .introductory:
+                        return "首次购买优惠价 \(introductoryOffer.displayPrice)"
+                    case .promotional:
+                        return "限时优惠价 \(introductoryOffer.displayPrice)"
+                    default:
+                        return ""
+                    }
+                }
+                
+                // 检查是否有订阅优惠
+                let promotionalOffers = subscription.promotionalOffers
+                if !promotionalOffers.isEmpty {
+                    return "特惠价 \(promotionalOffers[0].displayPrice)"
+                }
+            }
+            return ""
+        }
+        return ""
     }
     
     // MARK: - Public Methods
