@@ -424,11 +424,14 @@ class AudioManager: ObservableObject {
     
     // 简化的随机选择方法
     func randomSelectAndPlay() {
+        // 保存当前音乐选择
+        let currentMusic = selectedMusic
+        
         // 停止当前播放
         stopAll()
         selectedTypes.removeAll()
         
-        // 随机选择2-5个声音
+        // 随机选择1-3个声音
         let count = Int.random(in: 1...3)
         let allTypes = Array(AudioType.allCases)
         let shuffled = allTypes.shuffled()
@@ -439,10 +442,11 @@ class AudioManager: ObservableObject {
             volumes[type] = Float.random(in: 0.1...0.3)
         }
         
-        // 自动开始播放
-        isPlaying = true
-        selectedTypes.forEach { playAudio($0) }
-        startTimer()
+        // 恢复音乐选择
+        selectedMusic = currentMusic
+        
+        // 使用统一的播放逻辑
+        startPlaying()
     }
     
     func loadConfiguration(_ config: SavedConfiguration) {
