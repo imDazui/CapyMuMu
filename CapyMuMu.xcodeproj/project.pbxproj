@@ -786,7 +786,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MurmurApp;
 				PRODUCT_NAME = CapyMuMu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -825,7 +825,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MurmurApp;
 				PRODUCT_NAME = CapyMuMu;
 				PROVISIONING_PROFILE_SPECIFIER = "";

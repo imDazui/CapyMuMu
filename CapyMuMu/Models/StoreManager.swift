@@ -140,6 +140,10 @@ class StoreManager: ObservableObject {
     
     /// 更新已购买商品
     func updatePurchasedProducts() async {
+        // 始终保持 Pro 状态为 true，无需验证购买
+        isPro = true
+        // 以下代码已被注释掉，以确保所有功能都可用
+        /*
         for await result in Transaction.currentEntitlements {
             if case .verified(let transaction) = result {
                 if transaction.productID == Self.productID {
@@ -149,6 +153,7 @@ class StoreManager: ObservableObject {
             }
         }
         isPro = false
+        */
     }
     
     /// 恢复购买
