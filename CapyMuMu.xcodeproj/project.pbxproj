@@ -21,6 +21,20 @@
 			remoteGlobalIDString = AAA757A42D1902660092A484;
 			remoteInfo = Murmur;
 		};
+		AACAD5702D27DB56000CB506 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAA7579D2D1902660092A484 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AACAD55F2D27DB54000CB506;
+			remoteInfo = ios;
+		};
+		AACAD57A2D27DB56000CB506 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAA7579D2D1902660092A484 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AACAD55F2D27DB54000CB506;
+			remoteInfo = ios;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +43,9 @@
 		AAA757B62D1902680092A484 /* CapyMuMuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapyMuMuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA757C02D1902680092A484 /* CapyMuMuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapyMuMuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA757D32D1902890092A484 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AACAD5602D27DB54000CB506 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AACAD56F2D27DB56000CB506 /* iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AACAD5792D27DB56000CB506 /* iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -208,6 +225,21 @@
 			path = CapyMuMuUITests;
 			sourceTree = "<group>";
 		};
+		AACAD5612D27DB54000CB506 /* ios */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ios;
+			sourceTree = "<group>";
+		};
+		AACAD5722D27DB56000CB506 /* iosTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = iosTests;
+			sourceTree = "<group>";
+		};
+		AACAD57C2D27DB56000CB506 /* iosUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = iosUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +264,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AACAD55D2D27DB54000CB506 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AACAD56C2D27DB56000CB506 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AACAD5762D27DB56000CB506 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -242,6 +295,9 @@
 				AAA757A72D1902660092A484 /* CapyMuMu */,
 				AAA757B92D1902680092A484 /* CapyMuMuTests */,
 				AAA757C32D1902680092A484 /* CapyMuMuUITests */,
+				AACAD5612D27DB54000CB506 /* ios */,
+				AACAD5722D27DB56000CB506 /* iosTests */,
+				AACAD57C2D27DB56000CB506 /* iosUITests */,
 				AAA757A62D1902660092A484 /* Products */,
 				AAA757D32D1902890092A484 /* Info.plist */,
 			);
@@ -253,6 +309,9 @@
 				AAA757A52D1902660092A484 /* CapyMuMu.app */,
 				AAA757B62D1902680092A484 /* CapyMuMuTests.xctest */,
 				AAA757C02D1902680092A484 /* CapyMuMuUITests.xctest */,
+				AACAD5602D27DB54000CB506 /* ios.app */,
+				AACAD56F2D27DB56000CB506 /* iosTests.xctest */,
+				AACAD5792D27DB56000CB506 /* iosUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -328,6 +387,74 @@
 			productReference = AAA757C02D1902680092A484 /* CapyMuMuUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		AACAD55F2D27DB54000CB506 /* ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AACAD5872D27DB56000CB506 /* Build configuration list for PBXNativeTarget "ios" */;
+			buildPhases = (
+				AACAD55C2D27DB54000CB506 /* Sources */,
+				AACAD55D2D27DB54000CB506 /* Frameworks */,
+				AACAD55E2D27DB54000CB506 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AACAD5612D27DB54000CB506 /* ios */,
+			);
+			name = ios;
+			packageProductDependencies = (
+			);
+			productName = ios;
+			productReference = AACAD5602D27DB54000CB506 /* ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AACAD56E2D27DB56000CB506 /* iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AACAD5882D27DB56000CB506 /* Build configuration list for PBXNativeTarget "iosTests" */;
+			buildPhases = (
+				AACAD56B2D27DB56000CB506 /* Sources */,
+				AACAD56C2D27DB56000CB506 /* Frameworks */,
+				AACAD56D2D27DB56000CB506 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AACAD5712D27DB56000CB506 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AACAD5722D27DB56000CB506 /* iosTests */,
+			);
+			name = iosTests;
+			packageProductDependencies = (
+			);
+			productName = iosTests;
+			productReference = AACAD56F2D27DB56000CB506 /* iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AACAD5782D27DB56000CB506 /* iosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AACAD5892D27DB56000CB506 /* Build configuration list for PBXNativeTarget "iosUITests" */;
+			buildPhases = (
+				AACAD5752D27DB56000CB506 /* Sources */,
+				AACAD5762D27DB56000CB506 /* Frameworks */,
+				AACAD5772D27DB56000CB506 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AACAD57B2D27DB56000CB506 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AACAD57C2D27DB56000CB506 /* iosUITests */,
+			);
+			name = iosUITests;
+			packageProductDependencies = (
+			);
+			productName = iosUITests;
+			productReference = AACAD5792D27DB56000CB506 /* iosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -336,7 +463,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					AAA757A42D1902660092A484 = {
 						CreatedOnToolsVersion = 16.2;
@@ -348,6 +475,17 @@
 					AAA757BF2D1902680092A484 = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = AAA757A42D1902660092A484;
+					};
+					AACAD55F2D27DB54000CB506 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					AACAD56E2D27DB56000CB506 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = AACAD55F2D27DB54000CB506;
+					};
+					AACAD5782D27DB56000CB506 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = AACAD55F2D27DB54000CB506;
 					};
 				};
 			};
@@ -369,6 +507,9 @@
 				AAA757A42D1902660092A484 /* CapyMuMuApp */,
 				AAA757B52D1902680092A484 /* CapyMuMuTests */,
 				AAA757BF2D1902680092A484 /* CapyMuMuUITests */,
+				AACAD55F2D27DB54000CB506 /* ios */,
+				AACAD56E2D27DB56000CB506 /* iosTests */,
+				AACAD5782D27DB56000CB506 /* iosUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -389,6 +530,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AAA757BE2D1902680092A484 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AACAD55E2D27DB54000CB506 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AACAD56D2D27DB56000CB506 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AACAD5772D27DB56000CB506 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -419,6 +581,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AACAD55C2D27DB54000CB506 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AACAD56B2D27DB56000CB506 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AACAD5752D27DB56000CB506 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -432,6 +615,16 @@
 			target = AAA757A42D1902660092A484 /* CapyMuMuApp */;
 			targetProxy = AAA757C12D1902680092A484 /* PBXContainerItemProxy */;
 		};
+		AACAD5712D27DB56000CB506 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AACAD55F2D27DB54000CB506 /* ios */;
+			targetProxy = AACAD5702D27DB56000CB506 /* PBXContainerItemProxy */;
+		};
+		AACAD57B2D27DB56000CB506 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AACAD55F2D27DB54000CB506 /* ios */;
+			targetProxy = AACAD57A2D27DB56000CB506 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -441,6 +634,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				"ARCHS[sdk=*]" = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -470,8 +664,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -506,6 +702,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				"ARCHS[sdk=*]" = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -535,6 +732,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -572,8 +770,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CapyMuMu/Preview Content\"";
-				DEVELOPMENT_TEAM = NJ84T58273;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -586,7 +785,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MurmurApp;
 				PRODUCT_NAME = CapyMuMu;
@@ -610,6 +809,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CapyMuMu/Preview Content\"";
 				DEVELOPMENT_TEAM = NJ84T58273;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -624,7 +824,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MurmurApp;
 				PRODUCT_NAME = CapyMuMu;
@@ -640,6 +840,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = NJ84T58273;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -659,6 +860,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = NJ84T58273;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -677,6 +879,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = NJ84T58273;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -694,6 +897,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = NJ84T58273;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -703,6 +907,154 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = Murmur;
+			};
+			name = Release;
+		};
+		AACAD5812D27DB56000CB506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ios/Preview Content\"";
+				DEVELOPMENT_TEAM = NJ84T58273;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = CapMuMu;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CapMuMu.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AACAD5822D27DB56000CB506 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ios/Preview Content\"";
+				DEVELOPMENT_TEAM = NJ84T58273;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = CapMuMu;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CapMuMu.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AACAD5832D27DB56000CB506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJ84T58273;
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CapMuMu.iosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ios";
+			};
+			name = Debug;
+		};
+		AACAD5842D27DB56000CB506 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJ84T58273;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CapMuMu.iosTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ios";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AACAD5852D27DB56000CB506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJ84T58273;
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CapMuMu.iosUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ios;
+			};
+			name = Debug;
+		};
+		AACAD5862D27DB56000CB506 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJ84T58273;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CapMuMu.iosUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ios;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -741,6 +1093,33 @@
 			buildConfigurations = (
 				AAA757D12D1902680092A484 /* Debug */,
 				AAA757D22D1902680092A484 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AACAD5872D27DB56000CB506 /* Build configuration list for PBXNativeTarget "ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AACAD5812D27DB56000CB506 /* Debug */,
+				AACAD5822D27DB56000CB506 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AACAD5882D27DB56000CB506 /* Build configuration list for PBXNativeTarget "iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AACAD5832D27DB56000CB506 /* Debug */,
+				AACAD5842D27DB56000CB506 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AACAD5892D27DB56000CB506 /* Build configuration list for PBXNativeTarget "iosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AACAD5852D27DB56000CB506 /* Debug */,
+				AACAD5862D27DB56000CB506 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
