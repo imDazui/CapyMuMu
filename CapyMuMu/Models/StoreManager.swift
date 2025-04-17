@@ -8,7 +8,7 @@ class StoreManager: ObservableObject {
     
     // MARK: - Published Properties
     @Published private(set) var products: [Product] = []
-    @Published private(set) var isPro: Bool = false
+    @Published private(set) var isPro: Bool = true
     @Published private(set) var isLoading = false
     @Published private(set) var error: String?
     
